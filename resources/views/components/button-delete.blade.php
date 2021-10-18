@@ -1,0 +1,1 @@
+<a class="bg-red-600 rounded-lg ml-3 mr-4 text-gray-200 font-bold px-4 py-2 hover:bg-red-500">{{$slot}} </a>
