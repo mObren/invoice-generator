@@ -37,7 +37,7 @@ class Client extends Model
 
         $items = $this->items;
         foreach ($items as $item) {
-            $total+= $item->price;
+            $total+= $item->price * $item->quantity;
         }
         return $total;
     }

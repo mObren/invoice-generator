@@ -14,7 +14,7 @@ class SessionController extends Controller
         //Log the user out
         Auth::logout();
 
-        return redirect('/')->with('success', 'You are logged out.');
+        return redirect('/login')->with('success', 'Goodbye.');
     }
 
     public function create() {
@@ -26,12 +26,11 @@ class SessionController extends Controller
     public function login() {
 
         $data = request()->validate([
-            "username" => 'required',
             "email" => 'required|email',
             "password" => 'required',
         ]);
         if (Auth::attempt($data)) {
-                return redirect('/')->with('success', 'Welcome back!');
+                return redirect('/')->with('success', 'Welcome back, ' . auth()->user()->username . '!');
             // }
             }
             throw ValidationException::withMessages([

@@ -18,6 +18,24 @@ class InvoiceController extends Controller
         
     }
 
+    public function single($id) {
+
+
+        $collection = Invoice::with('items')->where('id', $id)->get();
+        $invoice = $collection[0];
+        if (Auth::user()->id === $invoice->user()->id) {
+            return view('invoices.single', [
+                'invoice' => $invoice
+            ]);
+        } else {
+            return redirect('/');
+        }
+
+
+     
+
+    }
+
     public function create($id = null) {
         if($id !== null) {
             $invoice = Invoice::find($id);
@@ -49,7 +67,7 @@ class InvoiceController extends Controller
 
             if (Auth::user()->id === $invoice->user()->id) {
                 $invoice->update($data);
-                return redirect("/")->with('success', 'Invoice has been updated!');
+                return redirect("/invoices/$id")->with('success', 'Invoice has been updated!');
             } else {
                 return redirect('/');
             }
@@ -67,9 +85,9 @@ class InvoiceController extends Controller
         // $data['valute'] =  date('Y-m-d', time());
         
 
-        Invoice::create($data);
+        $invoice = Invoice::create($data);
 
-        return redirect("/")->with('success', "New invoice has been successfully created!");
+        return redirect("/invoices/$invoice->id")->with('success', "New invoice has been successfully created!");
         }
     }
 
@@ -117,5 +135,19 @@ class InvoiceController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function changeIsPaidStatus($id) {
+        $invoice = Invoice::find($id);
+        if ($invoice->status === 0) {
+            $data['status'] = 1;
+            $invoice->update($data);
+        return redirect("/invoices/$invoice->id")->with('success', "You set invoice status to: paid!");
+
+        } else {
+            $data['status'] = 0;
+            $invoice->update($data);
+        return redirect("/invoices/$invoice->id")->with('success', "You set invoice status to: not paid!");
+
+        }
     }
 }

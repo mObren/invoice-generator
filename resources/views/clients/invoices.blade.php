@@ -27,8 +27,8 @@
             <tr>
                 <td class="border-2 px-6 py-2">{{date('d/m/Y', strtotime($invoice->date))}}</td>
                 <td class="border-2 px-6 py-2">{{date('d/m/Y', strtotime($invoice->valute))}}</td>
-                <td class="border-2 px-6 py-2">@if($invoice->status === 0) {{'Not paid'}}  @else {{'Paid'}} @endif </td>
-                <td class="border-2 px-6 py-2">${{$invoice->getTotal($client->id)}}</td>
+                <td class="border-2 font-semibold {{$invoice->status === 0 ? 'text-red-700' : 'text-green-600'}} px-6 py-2">@if($invoice->status === 0) {{'Not paid'}}  @else {{'Paid'}} @endif </td>
+                <td class="border-2 px-6 py-2">{{$invoice->getTotal($client->id)}} rsd</td>
 
                 <td class="border-2 px-6 py-2">
                   <x-button-dropdown> 
@@ -40,7 +40,7 @@
                     class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
                   Edit
                 </a>
-                <a href="/clients/delete/{{$client->id}}" 
+                <a href="/invoices/delete/{{$client->id}}" 
                     class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
                 Delete
                 </a>
@@ -54,7 +54,12 @@
             @endforeach
     
         </tbody>
-    </table>    
+    </table>  
+       
+    
+    </div>
+    <div class=" my-5 float-right">
+        <x-button-add><a class="text-gray-200 font-bold" href="/invoices/create">+Add invoice</a></x-button-add>
     
     </div>
     

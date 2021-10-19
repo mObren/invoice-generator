@@ -58,19 +58,26 @@
             </tr>
             <tr>
                 <td class="border px-6 py-2 font-bold">All invoices:</td>
-                <td class="border px-6 py-2"><a class="text-blue-600" href="/clients/invoices/{{$client->id}}">View invoices</a></td>
+                <td class="border px-6 py-2"><a class="font-semibold text-blue-600" href="/clients/invoices/{{$client->id}}">Display all invoices</a></td>
 
             </tr>
         </tbody>
     </table>
 </div>
 <div class="flex float-right">
-        <a class="bg-yellow-500 rounded-lg text-gray-200 font-bold px-4 py-2 hover:bg-yellow-400"
+
+
+        <x-button-add><a class="text-gray-200 font-bold" href="/invoices/create">+Add invoice</a></x-button-add>
+    
+
+        <a class="bg-yellow-500 rounded-lg ml-3 text-gray-200 font-bold px-4 py-2 hover:bg-yellow-400"
     href="/clients/create/{{$client->id}}"> Edit</a>
 
 
  <a class="bg-red-500 rounded-lg ml-3 mr-4 text-gray-200 font-bold px-4 py-2 hover:bg-red-400"
     href="/clients/delete/{{$client->id}}">Delete </a>
+
+
 
 
 </div>

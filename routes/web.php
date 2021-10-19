@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\ItemController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
@@ -51,5 +52,12 @@ Route::prefix('clients')->group(function () {
 Route::prefix('invoices')->group( function () {
     Route::get('/create/{id?}', [InvoiceController::class, 'create'])->middleware('auth', 'activeUser');
     Route::post('/save/{id?}', [InvoiceController::class, 'store'])->middleware('auth', 'activeUser');
+    Route::get('/change/{id}', [InvoiceController::class, 'changeIsPaidStatus'])->middleware('auth', 'activeUser');
+    Route::get('/{id?}', [InvoiceController::class, 'single'])->middleware('auth', 'activeUser');
+});
 
+//Item routes
+Route::prefix('items')->group( function () {
+    Route::post('/create', [ItemController::class, 'store'])->middleware('auth', 'activeUser');
+    Route::get('/delete/{id}', [ItemController::class, 'delete'])->middleware('auth', 'activeUser');
 });

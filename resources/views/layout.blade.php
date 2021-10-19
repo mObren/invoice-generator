@@ -35,7 +35,7 @@
   @auth
 
   <div class="flex">
-  <aside class="bg-gray-900 text-gray-700 w-1/5">
+  <aside class="bg-gray-900 text-gray-700 min-h-full w-1/5">
     <ul class="text-gray-200 text-lg">
       <a href="/clients/create"> <li class="cursor-pointer px-6 py-2 mt-8 hover:bg-gray-800">Add new client</li></a>
       <a href="/clients"> <li class="cursor-pointer px-6 py-2 my-4 hover:bg-gray-800">List all clients</li></a>
@@ -47,17 +47,23 @@
   </aside>
   @endauth
   <main class="bg-gray-100 p-12 min-h-screen w-full "> 
-    <div class="absoulte right-5 top-5 rounded bg-gray-200">
-      <p class="text-xs font-semibold text-green-600">{{ session('success')}}  </p>
+
+    @if (session()->has('success'))
+    <div  x-data="{ show: true}"
+          x-init="setTimeout(() => show = false, 4000)"
+          x-show="show"
+          class="absoulte right-5 top-5 rounded bg-gray-200">
+
+           <p class="text-xs font-semibold text-green-600">{{ session('success')}}  </p>
       
       </div>
+    @endif
+   
     @yield('content') 
 
   </main>
 
-  @if (session()->has('success'))
-    
-@endif
+
 </div>
 </div>
 

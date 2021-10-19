@@ -4,6 +4,9 @@
 @section('content')
 @if ($clients)
     
+<div class="justify-items-center py-3 px-6 ml-28">
+  <h2 class="text-2xl text-gray-700 font-bold uppercase">List of all clients</h2>
+</div>
 
 <div class="flex">
 <table class="w-full whitespace-nowrap border-gray-500 border-4">
