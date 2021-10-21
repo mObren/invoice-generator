@@ -42,9 +42,10 @@ class Client extends Model
     public function getTotalToPay() {
         $total = 0;
 
-        $items = $this->items;
-        foreach ($items as $item) {
-            $total+= $item->price * $item->quantity;
+        $invoices = $this->invoices;
+        $invoices->load('items');
+        foreach ($invoices as $invoice) {
+            $total+= $invoice->getTotal();
         }
         return $total;
     }
@@ -54,7 +55,7 @@ class Client extends Model
 
         $collection = Client::with('invoices')->where('user_id', $user->id);
 
-        $clients = $collection->filter(request(['search_company']))->get();
+        $clients = $collection->orderBy('company_name', 'ASC')->filter(request(['search_company']))->paginate(10);
         
 
 

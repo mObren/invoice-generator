@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Client;
+use App\Models\Invoice;
 use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
@@ -108,16 +109,15 @@ class ClientController extends Controller
 
     public function allInvoices($id) {
 
-        $client = Client::with('invoices')->where('id', $id)->get();
-        $invoices = $client[0]->invoices;
+        $client = Client::find($id);
+        $invoices = Invoice::where('client_id', $id)->paginate(5);
         $invoices->load('items');
 
-        if (Auth::user()->id === $client[0]->user_id) {
+        if (Auth::user()->id === $client->user_id) {
             return view('clients.invoices', 
             [
-                'client' => $client[0],
-                'invoices' => $invoices
-    
+                'invoices' => $invoices,
+                'client' => $client
             ]);
         } else {
             return redirect('/');

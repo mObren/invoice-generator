@@ -77,15 +77,10 @@
             type="submit" 
             value="Search">
         </div>
-
     </div>
 
-    
     </form>
-    
 </div>
-
-
 
 <div class="bg-white flex rounded shadow-md mt-24">
     <div class="p-2 m-3 w-28">
@@ -98,7 +93,9 @@
     <div class="p-2 m-3 w-44">
         <p class="h-8 text-sm font-semibold p-1">Client</p>
         @foreach($invoices as $invoice)
-        <p class="h-8 text-xs text-gray-700 font-semibold p-1"><a href="/clients/{{$invoice->client_id}}">{{$invoice->client->company_name}}</a></p>
+        <p class="h-8 text-xs text-gray-700 font-semibold p-1">
+            <a href="/clients/{{$invoice->client_id}}">{{$invoice->client->company_name}}</a>
+        </p>
         @endforeach
     </div>
     <div class="p-2 m-3 w-28">
@@ -110,13 +107,18 @@
     <div class="p-2 m-3 w-28">
         <p class="h-8 text-sm font-semibold p-1">Valute</p>
         @foreach($invoices as $invoice)
-        <p class="h-8 text-xs text-gray-700 font-semibold p-1">{{date('d.m.Y.', strtotime($invoice->valute))}}</p>
+        <p class="h-8 text-xs text-gray-700 font-semibold p-1">
+            {{$invoice->valute < date('Y-m-d', time()) ? '* ' . date('d.m.Y.', strtotime($invoice->valute)) :
+            date('d.m.Y.', strtotime($invoice->valute))}}
+            </p>
         @endforeach       
     </div>
     <div class="p-2 m-3 w-24">
         <p class="h-8 text-sm font-semibold p-1">Status</p>
         @foreach($invoices as $invoice)
-        <p class="h-8 text-xs {{$invoice->status === 0 ? 'text-red-700' : 'text-green-600'}} font-semibold p-1">{{$invoice->status === 0 ? 'Not paid' : 'Paid'}}</p>
+        <p class="h-8 text-xs {{$invoice->status === 0 ? 'text-red-700' : 'text-green-600'}} font-semibold p-1">
+            {{$invoice->status === 0 ? 'Not paid' : 'Paid'}}
+        </p>
         @endforeach
     </div>
     <div class="p-2 m-3 w-40">
@@ -150,23 +152,23 @@
             
         </x-small-dropdown>
         @endforeach       
-    
-     
-
     </div>
-
-    
 </div>
 
 @empty($invoices)
     <p class="p-2 m-2 text-lg font-semibold">  
-           Nothing to display.
+           No results.
     </p>
-
-    
+@else
+<div class=" mt-4">
+    <p class="text-xs font-semibold text-gray-700"> * - Stared invoices are out of valute.</p>
+</div>
    
 
+{{$results->links()}}
+
 @endempty
+
 <div class=" float-right my-3">
    <x-button-add><a href="/invoices/create">+Create new</a></x-button-add>
 </div>

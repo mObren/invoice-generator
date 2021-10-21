@@ -20,18 +20,19 @@ class InvoiceController extends Controller
         $invoices = [];
         $userId = Auth::user()->id;
         $collection = Invoice::with(['client:id,company_name', 'items'])
-        ->whereRelation('client', 'user_id', '=', $userId)->orderBy('date', 'ASC');
+        ->whereRelation('client', 'user_id', '=', $userId);
    
         //dd(request('search_status'));
-        $results = $collection->filter(request([
-            'search_company', 'search_status', 'search_date_from', 'search_date_to', 'search_valute_from', 'search_valute_to']))->get();
+        $results = $collection->orderBy('date', 'ASC')->filter(request([
+            'search_company', 'search_status', 'search_date_from', 'search_date_to', 'search_valute_from', 'search_valute_to']))->paginate(10);
         foreach ($results as $item) {
                 $invoices[] = $item;
             
         }
 
         return view('invoices.all', [
-            'invoices' => $invoices
+            'invoices' => $invoices,
+            'results' => $results
         ]);   
      }
 
@@ -106,41 +107,6 @@ class InvoiceController extends Controller
 
         return redirect("/invoices/$invoice->id")->with('success', "New invoice has been successfully created!");
         }
-    }
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**

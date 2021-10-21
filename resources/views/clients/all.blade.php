@@ -35,7 +35,7 @@
 </div>
 
 
-<div class="flex">
+<div class="flex mb-5">
 <table class="w-full whitespace-nowrap border-gray-500 ml-2 mt-16 border-4">
     <thead class="">
         <tr class="text-left font-bold">
@@ -56,8 +56,8 @@
             <td class="border-2 px-6 py-2">{{$client->address}}</td>
             <td class="border-2 px-6 py-2">{{$client->city}}</td>
             <td class="border-2 px-6 py-2">{{$client->country}}</td>
-            <td class="border-2 px-6 py-2">{{$client->zip_code}}</td>
-            <td class="border-2 w-32 px-6 py-2">${{$client->getTotalToPay()}}</td>
+            <td class="border-2 px-4 py-2">{{$client->zip_code}}</td>
+            <td class="border-2 text-xs px-4 py-2">{{$client->getTotalToPay()}} rsd</td>
             <td class="border-2 px-6 py-2">
               <x-button-dropdown>   <a href="/clients/{{$client->id}}" 
                 class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
@@ -90,6 +90,8 @@
 @else
 <h2>There are not any clients yet.</h2>
 @endif
+
+{{ $clients->links()}}
 
 <div class=" my-5 float-right">
     <x-button-add><a class="text-gray-200 font-bold" href="/clients/create">+Add client</a></x-button-add>
