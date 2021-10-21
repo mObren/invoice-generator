@@ -46,6 +46,8 @@ class Client extends Model
         $user = User::getCurrentUser();
 
         $clients = Client::with('invoices')->where('user_id', $user->id)->get();
+        
+
 
         return $clients;
     }

@@ -52,8 +52,12 @@ Route::prefix('clients')->group(function () {
 Route::prefix('invoices')->group( function () {
     Route::get('/create/{id?}', [InvoiceController::class, 'create'])->middleware('auth', 'activeUser');
     Route::post('/save/{id?}', [InvoiceController::class, 'store'])->middleware('auth', 'activeUser');
+    Route::get('/delete/{id}', [InvoiceController::class, 'delete'])->middleware('auth', 'activeUser');
     Route::get('/change/{id}', [InvoiceController::class, 'changeIsPaidStatus'])->middleware('auth', 'activeUser');
-    Route::get('/{id?}', [InvoiceController::class, 'single'])->middleware('auth', 'activeUser');
+    Route::get('/toggle/{id}', [InvoiceController::class, 'toggleStatus'])->middleware('auth', 'activeUser');
+    Route::get('/{id}', [InvoiceController::class, 'single'])->middleware('auth', 'activeUser');
+    Route::get('', [InvoiceController::class, 'index'])->middleware('auth', 'activeUser');
+
 });
 
 //Item routes

@@ -22,7 +22,7 @@
         <a class="rounded p-2 text-blue-700 font-semibold bg-gray-300 text-sm cursor-pointer" href="">Send to client</a>
     </div>
     <div class="inline">
-        <a class="rounded p-2 text-red-700 font-semibold bg-gray-300 text-sm cursor-pointer"  href="">Delete</a>
+        <a class="rounded p-2 text-red-700 font-semibold bg-gray-300 text-sm cursor-pointer"  href="/invoices/delete/{{$invoice->id}}">Delete</a>
     </div>
 </div>
 
@@ -56,11 +56,15 @@
                      </td>
                     <td class="border-4 px-3 py-6 w-32">
                         <p class="text-sm">Status:</p>
-                        <p class="text-sm {{$invoice->status === 0 ? 'text-red-700' : 'text-green-600'}} font-semibold">{{$invoice->status === 0 ? 'Not paid' : 'Paid' }}</p>   
+                        <p class="text-sm {{$invoice->status === 0 ? 'text-red-700' : 'text-green-600'}}
+                             font-semibold">{{$invoice->status === 0 ? 'Not paid' : 'Paid' }}
+                        </p>   
                      </td>
                      <td class="w-36 border-4 px-3 py-6">
                         <p class="text-sm">Total to pay:</p>
-                        <p class="text-sm {{$invoice->status === 0 ? 'text-red-700' : 'text-green-600'}} font-semibold">$ {{$invoice->status === 0 ? $invoice->getTotal() : '0' }}</p>   
+                        <p class="text-sm {{$invoice->status === 0 ? 'text-red-700' : 'text-green-600'}}
+                             font-semibold">{{$invoice->status === 0 ? $invoice->getTotal() : '0' }} rsd
+                        </p>   
                      </td>
                 </tr>
 

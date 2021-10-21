@@ -17,7 +17,7 @@
             <x-table-cell>City</x-table-cell>
             <x-table-cell>Country</x-table-cell>
             <x-table-cell>Zip code</x-table-cell>
-            <x-table-cell>Total amount</x-table-cell>
+            <x-table-cell>Total</x-table-cell>
             <x-table-cell>Options</x-table-cell>
         </tr>
 
@@ -30,7 +30,7 @@
             <td class="border-2 px-6 py-2">{{$client->city}}</td>
             <td class="border-2 px-6 py-2">{{$client->country}}</td>
             <td class="border-2 px-6 py-2">{{$client->zip_code}}</td>
-            <td class="border-2 px-6 py-2">${{$client->getTotalToPay()}}</td>
+            <td class="border-2 w-32 px-6 py-2">${{$client->getTotalToPay()}}</td>
             <td class="border-2 px-6 py-2">
               <x-button-dropdown>   <a href="/clients/{{$client->id}}" 
                 class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">

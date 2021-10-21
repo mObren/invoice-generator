@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Invoice;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Client;
 
 class InvoiceController extends Controller
 {
@@ -16,7 +17,23 @@ class InvoiceController extends Controller
     public function index()
     {
         
-    }
+        $invoices = [];
+        $userId = Auth::user()->id;
+        $collection = Invoice::with(['client:id,company_name', 'items'])
+        ->whereRelation('client', 'user_id', '=', $userId)->orderBy('date', 'ASC');
+   
+        //dd(request('search_status'));
+        $results = $collection->filter(request([
+            'search_company', 'search_status', 'search_date_from', 'search_date_to', 'search_valute_from', 'search_valute_to']))->get();
+        foreach ($results as $item) {
+                $invoices[] = $item;
+            
+        }
+
+        return view('invoices.all', [
+            'invoices' => $invoices
+        ]);   
+     }
 
     public function single($id) {
 
@@ -132,9 +149,17 @@ class InvoiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function delete($id) {
+        $invoice = Invoice::find($id);
+        if (Auth::user()->id === $invoice->user()->id) {
+    
+            Invoice::destroy($id);
+            return redirect("/invoices")->with('success', "Invoice has been successfully deleted!");
+        }
+        else {
+            redirect('/');
+        }
+    
     }
     public function changeIsPaidStatus($id) {
         $invoice = Invoice::find($id);
@@ -149,5 +174,17 @@ class InvoiceController extends Controller
         return redirect("/invoices/$invoice->id")->with('success', "You set invoice status to: not paid!");
 
         }
+    }
+    public function toggleStatus($id) {
+        $invoice = Invoice::find($id);
+        if ($invoice->status === 0) {
+            $data['status'] = 1;
+            $invoice->update($data);
+        } else {
+            $data['status'] = 0;
+            $invoice->update($data);
+
+        }
+        return redirect("/invoices")->with('success', "Invoice's no. $invoice->id status has been changed!");
     }
 }

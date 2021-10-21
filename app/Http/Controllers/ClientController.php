@@ -109,12 +109,14 @@ class ClientController extends Controller
     public function allInvoices($id) {
 
         $client = Client::with('invoices')->where('id', $id)->get();
+        $invoices = $client[0]->invoices;
+        $invoices->load('items');
 
         if (Auth::user()->id === $client[0]->user_id) {
             return view('clients.invoices', 
             [
                 'client' => $client[0],
-                'invoices' => $client[0]->invoices
+                'invoices' => $invoices
     
             ]);
         } else {
