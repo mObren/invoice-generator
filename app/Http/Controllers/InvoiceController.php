@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Invoice;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Client;
+use App\Models\User;
+use Illuminate\Validation\Rules\In;
+use LaravelDaily\Invoices\Invoice as InvoiceDocument;
+use LaravelDaily\Invoices\Classes\Party;
+use LaravelDaily\Invoices\Classes\InvoiceItem;
 
 class InvoiceController extends Controller
 {
@@ -35,6 +40,68 @@ class InvoiceController extends Controller
             'results' => $results
         ]);   
      }
+     public function export($id) {
+        $row = Invoice::find($id);
+        $invoice = $row->load(['items', 'client']);
+
+        $user = User::find(Auth::user()->id);
+
+        // dd($user->company_name);
+
+        $seller = new Party([
+            'name' => $user->company_name,
+            'code' => $user->zip_code,
+            'address' => $user->address . ',' . $user->city,
+            'phone' => $user->phone_number,
+            'email' => $user->email,
+            'vat' => $user->tax_number,
+            'account_number' => $user->current_account,
+        ]);
+        $customer = new Party([
+            'name' => $invoice->client->company_name,
+            'code' => $invoice->client->zip_code,
+            'address' => $invoice->client->address,
+            'city' => $invoice->client->city,
+            'country' => $invoice->client->country,
+            'email' => $invoice->client->email,
+            'registration_number' => $invoice->client->registration_number,
+            'vat' => $invoice->client->tax_number
+        ]);
+
+        $items = collect();
+        $invoice->items->each(function ($invoice_item) use (&$items) {
+            $item = new InvoiceItem();
+            $item->title($invoice_item->service)
+                ->pricePerUnit($invoice_item->price)
+                ->subTotalPrice( $invoice_item->price * $invoice_item->quantity)
+                ->tax($invoice_item->pdv)
+                ->quantity($invoice_item->quantity);
+    
+            $items->push($item);
+        });
+
+        $invoiceDocument = InvoiceDocument::make('receipt')
+        ->sequence($invoice->id)
+        ->serialNumberFormat('{SEQUENCE}')
+        ->seller($seller)
+        ->buyer($customer)
+        ->date($invoice->date)
+        ->dateFormat('m/d/Y')
+        ->payUntilDays(strtotime($invoice->valute))
+        ->currencySymbol('rsd') ->currencyCode('RSD')
+        ->currencyFormat('{SYMBOL} {VALUE}')
+        ->currencyThousandsSeparator('.')
+        ->currencyDecimalPoint(',')
+        ->filename($invoice->id)
+        ->addItems($items->toArray())
+        ->logo(public_path('vendor/invoices/sample-logo.png'))
+        ->template('invoice'); // Plantilla personalizada
+
+        // dd($items);
+
+   return view('templates.invoice', ['invoice' => $invoiceDocument,   'helper' => $invoice ]);
+     }
+
 
     public function single($id) {
 
