@@ -30,6 +30,13 @@ class Client extends Model
     public function items() {
         return $this->hasManyThrough(Item::class, Invoice::class);
     }
+    public function scopeFilter($query, array $filters) {
+
+        if (isset($filters['search_company'])) {
+            $query->where('company_name', 'like', "%" . request('search_company') . "%");
+        } 
+     
+    }
 
 
     public function getTotalToPay() {
@@ -45,7 +52,9 @@ class Client extends Model
     public static function fetchAllClients() {
         $user = User::getCurrentUser();
 
-        $clients = Client::with('invoices')->where('user_id', $user->id)->get();
+        $collection = Client::with('invoices')->where('user_id', $user->id);
+
+        $clients = $collection->filter(request(['search_company']))->get();
         
 
 

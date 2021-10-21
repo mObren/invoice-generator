@@ -7,9 +7,36 @@
 <div class="justify-items-center py-3 px-6 ml-28">
   <h2 class="text-2xl text-gray-700 font-bold uppercase">List of all clients</h2>
 </div>
+<div class="float-right mt-2 mr-5">
+  <form action="/clients" method="get">
+      <div class="flex">
+
+  
+      <div class="ml-2">
+          <input 
+          class="text-xs bg-gray-300 px-2 py-1 w-44 outline-none font-semibold text-gray-800 rounded-lg" 
+          placeholder="Company name..." 
+          name="search_company"
+          id="search_company"
+          type="text">
+      </div>
+      <div class="ml-2">
+          <input 
+          class="text-xs text-gray-800 font-semibold rounded-lg px-2 py-1 bg-gray-300 cursor-pointer hover:bg-gray-400" 
+          type="submit" 
+          value="Search">
+      </div>
+
+  </div>
+
+  
+  </form>
+  
+</div>
+
 
 <div class="flex">
-<table class="w-full whitespace-nowrap border-gray-500 border-4">
+<table class="w-full whitespace-nowrap border-gray-500 ml-2 mt-16 border-4">
     <thead class="">
         <tr class="text-left font-bold">
             <x-table-cell>Company name</x-table-cell>

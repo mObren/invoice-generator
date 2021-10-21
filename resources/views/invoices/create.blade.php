@@ -64,8 +64,7 @@
              <label class="font-bold text-gray-700 text-sm mr-2" for="status">Status</label>
              <select class="py-1 px-2 w-full rounded border border-gray-500 focus:border-blue-400 outline-none"
                  name="status" id="status">
-
- 
+                  
                  <option value="{{0}}">Not paid</option>
                  <option value="{{1}}">Paid </option>
              </select>
