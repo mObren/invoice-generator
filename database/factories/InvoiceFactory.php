@@ -30,7 +30,7 @@ class InvoiceFactory extends Factory
             'client_id' => array_rand(array_flip($clientsIds)),
             'date' => $this->faker->date(),
             'valute' => $this->faker->date(),
-            'status' => rand(0, 1),
+            'status' => 0
 
 
         ];

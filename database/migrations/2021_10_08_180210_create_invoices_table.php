@@ -18,6 +18,7 @@ class CreateInvoicesTable extends Migration
             $table->foreignId('client_id')->references('id')->on('clients')->onDelete('cascade')->onUpdate('cascade');
             $table->date('date');
             $table->date('valute');
+            $table->date('date_paid')->nullable();
             $table->boolean('status')->default(0);
             $table->timestamps();
         });

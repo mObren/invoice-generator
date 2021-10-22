@@ -16,13 +16,11 @@
                 <label class="font-bold text-gray-700 text-sm mr-2" for="client_id">Client</label>
                 <select class="py-1 px-2 w-full rounded border border-gray-500 focus:border-blue-400 outline-none"
                     name="client_id" id="client_id">
-
-                    @isset($invoice)      <option  selected value="{{$invoice->client->id ?? ''}}">{{$invoice->client->company_name ?? ''}}</option> 
-                    @else
                     <option value="">-Select client-</option>
-                    @endisset 
                  @foreach(auth()->user()->clients as $client) {
-                      <option value="{{$client->id}}">{{$client->company_name}}</option>
+                      <option {{$invoice->client->id === $client->id ? 'selected' : ''}} value="{{$client->id}}">
+                        {{$client->company_name}}
+                      </option>
 
                  }
                  @endforeach
@@ -38,7 +36,8 @@
             <div class="mb-4">
                 <label class="font-bold text-gray-700 text-sm mr-2" for="date">Date</label>
                 <input class="py-1 px-2 w-full rounded border border-gray-500 focus:border-blue-400 outline-none"
-                 type="date" value="{{ $invoice->date ?? '' }} "name="date" id="date">
+                 type="date" 
+                 value="{{ date('m/d/Y', strtotime($invoice->date)) ?? '' }} "name="date" id="date">
             </div>
             {{-- @dd(date('m/d/Y', strtotime($invoice->date))); --}}
 
@@ -57,22 +56,6 @@
             <x-form-error>{{$message}}</x-form-error>
                  
              @enderror
-
-          <!-- Status -->
-
-             <div  class="mb-4">
-             <label class="font-bold text-gray-700 text-sm mr-2" for="status">Status</label>
-             <select class="py-1 px-2 w-full rounded border border-gray-500 focus:border-blue-400 outline-none"
-                 name="status" id="status">
-                  
-                 <option value="{{0}}">Not paid</option>
-                 <option value="{{1}}">Paid </option>
-             </select>
-         </div>
-         @error('status')
-        <x-form-error>{{$message}}</x-form-error>
-             
-         @enderror
 
             <input class="w-full float-right block p-2 bg-blue-500 
             hover:bg-blue-400 rounded text-gray-200 cursor-pointer font-bold text-lg"

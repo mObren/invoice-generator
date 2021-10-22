@@ -17,6 +17,7 @@
           class="text-xs bg-gray-300 px-2 py-1 w-44 outline-none font-semibold text-gray-800 rounded-lg" 
           placeholder="Company name..." 
           name="search_company"
+          value="{{request('search_company')}}"
           id="search_company"
           type="text">
       </div>
@@ -44,7 +45,7 @@
             <x-table-cell>City</x-table-cell>
             <x-table-cell>Country</x-table-cell>
             <x-table-cell>Zip code</x-table-cell>
-            <x-table-cell>Total</x-table-cell>
+            <x-table-cell>Total to pay</x-table-cell>
             <x-table-cell>Options</x-table-cell>
         </tr>
 

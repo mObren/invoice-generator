@@ -31,10 +31,14 @@ class Invoice extends Model
         return $this->client->user;
     }
 
+
     public function items() {
         return $this->hasMany(Item::class);
     }
 
+
+
+    //Filters for querying invoices
     public function scopeFilter($query, array $filters) {
 
         if (isset($filters['search_company'])) {
@@ -55,10 +59,27 @@ class Invoice extends Model
         if (isset($filters['search_valute_to'])) {
             $query->where('valute', '<=', request('search_valute_to'));
         }
+        if (isset($filters['paid_from'])) {
+            $query->where('date_paid', '>=', request('paid_from'));
+        }
+        if (isset($filters['paid_to'])) {
+            $query->where('date_paid', '<=', request('paid_to'));
+        }
      
     }
 
+
+    //Sum all items for an inovice
     public function getTotal() {
+        $total = 0;
+        $items = $this->items;
+        foreach ($items as $item) {
+            $total+= $item->price * $item->quantity;
+
+        }
+        return number_format($total, 2, ',', '.');
+    }
+    public function getTotalNumeric() {
         $total = 0;
         $items = $this->items;
         foreach ($items as $item) {
@@ -68,7 +89,19 @@ class Invoice extends Model
         return $total;
     }
 
-    public static function getInvoice($id)
+    public function getTotalTaxes() {
+        $total = 0;
+        $items = $this->items;
+        foreach ($items as $item) {
+            $total+= $item->price * $item->quantity;
+
+        }
+        return number_format($total/6, 2, ',', '.');
+    }
+
+
+    //Return data for displaying invoice in PDF format
+    public static function getInvoiceForPdf($id)
     {
        $row = Invoice::findOrFail($id);
 

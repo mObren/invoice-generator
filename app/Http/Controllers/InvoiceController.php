@@ -27,10 +27,13 @@ class InvoiceController extends Controller
         $userId = Auth::user()->id;
         $collection = Invoice::with(['client:id,company_name', 'items'])
         ->whereRelation('client', 'user_id', '=', $userId);
-   
+        
         //dd(request('search_status'));
-        $results = $collection->orderBy('date', 'ASC')->filter(request([
-            'search_company', 'search_status', 'search_date_from', 'search_date_to', 'search_valute_from', 'search_valute_to']))->paginate(10);
+        $results = $collection
+            ->orderBy('date', 'ASC')
+            ->filter(request([
+            'search_company', 'search_status', 'search_date_from', 'search_date_to', 'search_valute_from', 'search_valute_to']))
+            ->paginate(10);
         foreach ($results as $item) {
                 $invoices[] = $item;
             
@@ -41,44 +44,49 @@ class InvoiceController extends Controller
             'results' => $results
         ]);   
      }
-    
      
+     
+
+
+     //Display selected invoice in PDF format.
      public function export($id) {
          $helper = Invoice::findOrFail($id);
         if($helper->user()->id === auth()->user()->id) {
-       $invoiceDocument = Invoice::getInvoice($id);
+       $invoiceDocument = Invoice::getInvoiceForPdf($id);
     
        return view('templates.invoice', ['invoice' => $invoiceDocument,   'helper' => $helper ]);
         } else {
             return redirect('/');
         }
      }
-     public function createPDF($id) {
-        // retreive all records from db
+
+
+     //**Download PDF of selected invoice */
+
+     public function downloadPDF($id) {
         $helper = Invoice::findOrFail($id);
-        $invoice = Invoice::getInvoice($id);
+
+        $user = User::getCurrentUser();
+
+        if ($helper->user()->id === $user->id) {
+            $invoice = Invoice::getInvoiceForPdf($id);
   
         
-        // share data to view
-        view()->share(['invoice' => $invoice, 'helper' =>$helper]);
-        $pdf = app('dompdf.wrapper');
-        $pdf->loadView('templates.invoice');
-        
-
-
-  
-        // download PDF file with download method
-        return $pdf->download("invoice-" . $id . ".pdf");
+            view()->share(['invoice' => $invoice, 'helper' =>$helper]);
+            $pdf = app('dompdf.wrapper');
+            $pdf->loadView('templates.invoice');
+            
+            return $pdf->download("invoice-" . $id . ".pdf");
+        } 
+        else {
+            return redirect('/');
+        }
+      
       }
 
-
-
-    
+    //Display single invoice with form for adding items
     public function single($id) {
 
-        
-        // $collection = Invoice::with('items')->where('id', $id)->get();
-        // $invoice = $collection[0];
         $invoice = Invoice::findOrFail($id);
         if (Auth::user()->id === $invoice->user()->id) {
             return view('invoices.single', [
@@ -92,7 +100,7 @@ class InvoiceController extends Controller
      
 
     }
-
+    //Display form for adding invoices
     public function create($id = null) {
         if($id !== null) {
             $invoice = Invoice::find($id);
@@ -107,8 +115,9 @@ class InvoiceController extends Controller
         } else {
             return view('invoices.create');
         }
-    }
+    }       
 
+    //Store invoice to database
     public function store($id = null) {
 
         if ($id !== null) {
@@ -116,7 +125,6 @@ class InvoiceController extends Controller
                 'client_id' => 'required',
                 'date' => 'required|date',
                 'valute' => 'required|date',
-                'status' => 'required|boolean'
             ]);
 
             
@@ -136,8 +144,9 @@ class InvoiceController extends Controller
             'client_id' => 'required',
             'date' => 'required',
             'valute' => 'required',
-            'status' => 'required|boolean'
         ]);
+
+        $data['status'] = 0;
         // $data['date'] = date('Y-m-d', time());
         // $data['valute'] =  date('Y-m-d', time());
         
@@ -166,27 +175,35 @@ class InvoiceController extends Controller
         }
     
     }
+
+
+    //Set "is paid" status to oposite of current
     public function changeIsPaidStatus($id) {
         $invoice = Invoice::find($id);
         if ($invoice->status === 0) {
             $data['status'] = 1;
+            $data['date_paid'] = date('Y-m-d', strtotime(now()));
             $invoice->update($data);
         return redirect("/invoices/$invoice->id")->with('success', "You set invoice status to: paid!");
 
         } else {
             $data['status'] = 0;
+            $data['date_paid'] = NULL;
             $invoice->update($data);
         return redirect("/invoices/$invoice->id")->with('success', "You set invoice status to: not paid!");
 
         }
     }
+    //Set "is paid" status to oposite of current
     public function toggleStatus($id) {
         $invoice = Invoice::find($id);
         if ($invoice->status === 0) {
             $data['status'] = 1;
+            $data['date_paid'] = date('Y-m-d', strtotime(now()));
             $invoice->update($data);
         } else {
             $data['status'] = 0;
+            $data['date_paid'] = NULL;
             $invoice->update($data);
 
         }

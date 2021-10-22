@@ -30,6 +30,8 @@ class Client extends Model
     public function items() {
         return $this->hasManyThrough(Item::class, Invoice::class);
     }
+
+    //Filters for querying clients
     public function scopeFilter($query, array $filters) {
 
         if (isset($filters['search_company'])) {
@@ -38,27 +40,29 @@ class Client extends Model
      
     }
 
-
+    //Sum all invoices for a client
     public function getTotalToPay() {
         $total = 0;
 
         $invoices = $this->invoices;
         $invoices->load('items');
         foreach ($invoices as $invoice) {
-            $total+= $invoice->getTotal();
+            if ($invoice->status === 0) {
+               foreach ($invoice->items as $item) {
+                   $total += $item->price * $item->quantity;
+               }
+            }
         }
-        return $total;
+        return number_format($total, 2, ',', '.');
     }
+
+    //Get all clients
 
     public static function fetchAllClients() {
         $user = User::getCurrentUser();
-
         $collection = Client::with('invoices')->where('user_id', $user->id);
-
         $clients = $collection->orderBy('company_name', 'ASC')->filter(request(['search_company']))->paginate(10);
         
-
-
         return $clients;
     }
 }

@@ -71,8 +71,8 @@
                      </td>
                      <td class="w-36 border-4 px-3 py-6">
                         <p class="text-sm">Total to pay:</p>
-                        <p class="text-sm {{$invoice->status === 0 ? 'text-red-700' : 'text-green-600'}}
-                             font-semibold">{{$invoice->status === 0 ? $invoice->getTotal() : '0' }} rsd
+                        <p class="text-xs {{$invoice->status === 0 ? 'text-red-700' : 'text-green-600'}}
+                             font-semibold">{{$invoice->status === 0 ? $invoice->getTotal() : '0'}} rsd
                         </p>   
                      </td>
                 </tr>
@@ -175,7 +175,7 @@
         <div class="p-2 m-3 w-44">
             <p class="h-8 text-sm font-semibold p-1">Price</p>
             @foreach($invoice->items as $item)
-            <p class="h-8 text-xs text-gray-700 font-semibold p-1">{{$item->price}}</p>
+            <p class="h-8 text-xs text-gray-700 font-semibold p-1">{{number_format($item->price, 2, ',','.')}}</p>
             @endforeach       
         </div>
         <div class="p-2 m-3 w-36">
@@ -197,7 +197,7 @@
             <div class="p-2 mx-3 w-44">
             </div>
             <div class="p-2 mx-3 w-44">
-                <p class="h-8 text-md font-semibold p-1">${{$invoice->getTotal()}}</p>
+                <p class="h-8 text-md font-semibold p-1">{{$invoice->getTotal()}} rsd</p>
             </div>
     </div>
 </div>

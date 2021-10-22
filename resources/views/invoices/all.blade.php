@@ -16,7 +16,7 @@
                 class="text-xs h-6 bg-gray-300 px-2 py-1 w-32 outline-none text-gray-800 rounded-lg"
                 name="search_date_from"
                 id="search_date_from"
-
+                value="{{request('search_date_from')}}"
                 type="date">
         </div> 
         <div class="ml-2">
@@ -25,6 +25,8 @@
                 <input 
                 class="text-xs h-6 bg-gray-300 px-2 py-1 w-32 outline-none text-gray-800 rounded-lg" 
                 name="search_date_to"
+                value="{{request('search_date_to')}}"
+
                 id="search_date_to"
                 type="date">
         </div>
@@ -35,7 +37,7 @@
                 class="text-xs h-6 bg-gray-300 px-2 py-1 w-32 outline-none text-gray-800 rounded-lg"
                 name="search_valute_from"
                 id="search_valute_from"
-
+                value="{{request('search_valute_from')}}"
                 type="date">
         </div> 
         <div class="ml-2">
@@ -45,6 +47,7 @@
                 class="text-xs h-6 bg-gray-300 px-2 py-1 w-32 outline-none text-gray-800 rounded-lg" 
                 name="search_valute_to"
                 id="search_valute_to"
+                value="{{request('search_valute_to')}}"
                 type="date">
         </div>
         <div class="ml-2">
@@ -52,10 +55,11 @@
             class="text-xs h-6 bg-gray-300 px-2 py-1 w-22 outline-none font-semibold text-gray-800 rounded-lg" 
             name="search_status"
             id="search_status"
+
             >
             <option value="">-Status-</option>
-            <option value="0">Not paid</option>
-            <option value="1">Paid</option>
+            <option {{request('search_status') == 0 ? 'selected' : ''}} value="0">Not paid</option>
+            <option {{request('search_status') == 1 ? 'selected' : ''}} value="1">Paid</option>
 
 
             </select>
@@ -69,6 +73,7 @@
             placeholder="Company name..." 
             name="search_company"
             id="search_company"
+            value="{{request('search_company')}}"
             type="text">
         </div>
         <div class="ml-2">

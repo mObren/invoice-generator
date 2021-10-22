@@ -10,11 +10,14 @@ use Illuminate\Support\Facades\Auth;
 class ClientController extends Controller
 {
 
+    //Show all clients
     public function index() {
         $clients = Client::fetchAllClients();     
         return view('clients.all', ['clients' => $clients] );
     }
 
+
+    //Show client profile
     public function single($id) {
 
         $client = Client::findOrfail($id);
@@ -31,6 +34,7 @@ class ClientController extends Controller
     
     }
 
+    //Display form for editing/creating client
     public function create($id = null) {
         if($id !== null) {
             $client = Client::find($id);
@@ -46,7 +50,7 @@ class ClientController extends Controller
             return view('clients.create');
         }
     }
-
+    //Store new or updated client to database
     public function store($id = null) {
 
        

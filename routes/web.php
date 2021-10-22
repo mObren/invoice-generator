@@ -19,9 +19,7 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [UserController::class, 'home'])->middleware('auth', 'activeUser');
 
 
 //Register routes
@@ -56,7 +54,7 @@ Route::prefix('invoices')->group( function () {
     Route::get('/change/{id}', [InvoiceController::class, 'changeIsPaidStatus'])->middleware('auth', 'activeUser');
     Route::get('/toggle/{id}', [InvoiceController::class, 'toggleStatus'])->middleware('auth', 'activeUser');
     Route::get('/export/{id}', [InvoiceController::class, 'export'])->middleware('auth', 'activeUser');
-    Route::get('/pdf/{id}', [InvoiceController::class, 'createPDF'])->middleware('auth', 'activeUser');;
+    Route::get('/pdf/{id}', [InvoiceController::class, 'downloadPDF'])->middleware('auth', 'activeUser');;
     Route::get('/{id}', [InvoiceController::class, 'single'])->middleware('auth', 'activeUser');
     Route::get('', [InvoiceController::class, 'index'])->middleware('auth', 'activeUser');
 

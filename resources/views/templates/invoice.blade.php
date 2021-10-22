@@ -21,7 +21,7 @@
                 background-color: #fff;
                 font-size: 10px;
                 margin: 36pt;
-                max-width: 80%;
+                max-width: 65%;
                 margin: auto;
             }
 
@@ -372,7 +372,7 @@
                         <td colspan="{{ $invoice->table_columns - 2}}" class="border-0"></td>
                         <td class="text-right pl-0">{{ __('invoices::invoice.total_amount') }}</td>
                         <td class="text-right pr-0 total-amount">
-                     <p style="font-size: 10px"> {{ 'rsd ' . number_format($helper->getTotal(), 2, ',','.')}}</p> 
+                     <p style="font-size: 10px"> {{ 'rsd ' .$helper->getTotal()}}</p> 
                         </td>
                     </tr>
 
@@ -380,7 +380,7 @@
                         <td colspan="{{ $invoice->table_columns - 2 }}" class="border-0"></td>
                         <td class="text-right pl-0">{{ __('Tax') }}</td>
                         <td class="text-right pr-0 total-amount">
-                            <p style="font-size: 10px"> {{ 'rsd ' . number_format( $helper->getTotal()/6, 2, ',', '.')}}</p> 
+                            <p style="font-size: 10px"> {{ 'rsd ' . $helper->getTotalTaxes()}}</p> 
                         </td>
                     </tr>
                   
