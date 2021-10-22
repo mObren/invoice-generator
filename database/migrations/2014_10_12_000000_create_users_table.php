@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('address');
             $table->integer('tax_number')->unique();
             $table->string('phone_number')->unique();
+            $table->string('registration_number')->unique();
             $table->string('current_account')->unique();
             $table->string('city');
             $table->integer('zip_code');

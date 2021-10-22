@@ -25,6 +25,7 @@ class RegisterController extends Controller
             'city' => 'required|max:255',
             'zip_code' => 'required',
             'phone_number' => 'required',
+            'registration_number' => 'required',
             'tax_number' => 'required',
             'current_account' => 'required',
         ]);

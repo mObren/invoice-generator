@@ -30,7 +30,7 @@ class SessionController extends Controller
             "password" => 'required',
         ]);
         if (Auth::attempt($data)) {
-                return redirect('/')->with('success', 'Welcome back, ' . auth()->user()->username . '!');
+                return redirect('/profile')->with('success', 'Welcome back, ' . auth()->user()->username . '!');
             // }
             }
             throw ValidationException::withMessages([

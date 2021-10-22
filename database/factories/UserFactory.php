@@ -28,6 +28,7 @@ class UserFactory extends Factory
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'company_name' => $this->faker->company(),
             'tax_number' => rand(1000000, 9999999),
+            'registration_number' => rand(1000000, 9999999),
             'address' => $this->faker->streetAddress(),
             'city' => $this->faker->city(),
             'zip_code' => rand(11000, 22000),

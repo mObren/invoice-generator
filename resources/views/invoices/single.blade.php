@@ -23,6 +23,11 @@
         href="/invoices/export/{{$invoice->id}}">View PDF format</a>
     </div>
     <div class="inline">
+        <a class="rounded p-2 text-blue-700 font-semibold bg-gray-300 text-sm cursor-pointer" 
+        href="/invoices/pdf/{{$invoice->id}}">Download PDF</a>
+    </div>
+    
+    <div class="inline">
         <a class="rounded p-2 text-blue-700 font-semibold bg-gray-300 text-sm cursor-pointer" href="">Send to client</a>
     </div>
     <div class="inline">
