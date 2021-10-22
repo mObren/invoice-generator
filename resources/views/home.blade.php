@@ -27,7 +27,7 @@
             class="text-sm h-6 bg-gray-300 px-2 py-1 w-44 outline-none text-gray-800 rounded-lg" 
             type="date" 
             name="paid_to"
-            value="{{request('paid_from')}}"
+            value="{{request('paid_to')}}"
             id="paid_to">
         </div>
 
