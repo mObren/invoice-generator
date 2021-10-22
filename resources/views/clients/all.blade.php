@@ -43,9 +43,9 @@
             <x-table-cell>Company name</x-table-cell>
             <x-table-cell>Street address</x-table-cell>
             <x-table-cell>City</x-table-cell>
-            <x-table-cell>Country</x-table-cell>
-            <x-table-cell>Zip code</x-table-cell>
-            <x-table-cell>Total to pay</x-table-cell>
+            <td class="border-2 px-2 uppercase text-gray-700 py-4">Country</td>           
+            <td class="border-2 px-2 uppercase text-gray-700 py-4">Zip code</td>           
+             <x-table-cell>To pay</x-table-cell>
             <x-table-cell>Options</x-table-cell>
         </tr>
 
@@ -57,7 +57,7 @@
             <td class="border-2 px-6 py-2">{{$client->address}}</td>
             <td class="border-2 px-6 py-2">{{$client->city}}</td>
             <td class="border-2 px-6 py-2">{{$client->country}}</td>
-            <td class="border-2 px-4 py-2">{{$client->zip_code}}</td>
+            <td class="border-2 px-2 py-2">{{$client->zip_code}}</td>
             <td class="border-2 text-xs px-4 py-2">{{$client->getTotalToPay()}} rsd</td>
             <td class="border-2 px-6 py-2">
               <x-button-dropdown>   <a href="/clients/{{$client->id}}" 

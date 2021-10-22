@@ -9,7 +9,7 @@
 
     <div class="bg-white p-8 rounded-lg shadow 2x1 w-1/2">
         <h2 class="text-2xl font-bold mb-8 text-gray-700">Create invoice</h2>
-        <form class="space-y-3" action="/invoices/save/{{$invoice->id ?? ''}}" method="POST">
+        <form class="space-y-3" action="/invoices/save/{{$invoice ?? ''->id ?? ''}}" method="POST">
             @csrf
           <!-- Client -->
             <div class="mb-4">
@@ -18,7 +18,7 @@
                     name="client_id" id="client_id">
                     <option value="">-Select client-</option>
                  @foreach(auth()->user()->clients as $client) {
-                      <option {{$invoice->client->id === $client->id ? 'selected' : ''}} value="{{$client->id}}">
+                      <option {{$invoice ?? ''->client->id === $client->id ? 'selected' : ''}} value="{{$client->id}}">
                         {{$client->company_name}}
                       </option>
 
@@ -37,9 +37,9 @@
                 <label class="font-bold text-gray-700 text-sm mr-2" for="date">Date</label>
                 <input class="py-1 px-2 w-full rounded border border-gray-500 focus:border-blue-400 outline-none"
                  type="date" 
-                 value="{{ date('m/d/Y', strtotime($invoice->date)) ?? '' }} "name="date" id="date">
+                 value="{{ date('m/d/Y', strtotime($invoice->date ?? '')) ?? '' }} "name="date" id="date">
             </div>
-            {{-- @dd(date('m/d/Y', strtotime($invoice->date))); --}}
+            {{-- @dd(date('m/d/Y', strtotime($invoice ?? ''->date))); --}}
 
             @error('date')
            <x-form-error>{{$message}}</x-form-error>
@@ -50,7 +50,7 @@
             <div class="mb-4">
                 <label class="font-bold text-gray-700 text-sm mr-2" for="valute">Valute</label>
                 <input class="py-1 px-2 w-full rounded border border-gray-500 focus:border-blue-400 outline-none"
-                 type="date" value="{{$invoice->valute ?? ''}} "name="valute" id="valute">
+                 type="date" value="{{$invoice ?? ''->valute ?? ''}} "name="valute" id="valute">
             </div>
             @error('valute')
             <x-form-error>{{$message}}</x-form-error>
