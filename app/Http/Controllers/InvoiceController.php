@@ -49,51 +49,48 @@ class InvoiceController extends Controller
 
 
      //Display selected invoice in PDF format.
-     public function export($id) {
-         $helper = Invoice::findOrFail($id);
-        if($helper->user()->id === auth()->user()->id) {
-       $invoiceDocument = Invoice::getInvoiceForPdf($id);
+     public function export(Invoice $invoice) {
+       
+        if($invoice->user()->id === auth()->user()->id) {
+       $invoiceDocument = Invoice::getInvoiceForPdf($invoice->id);
     
-       return view('templates.invoice', ['invoice' => $invoiceDocument,   'helper' => $helper ]);
+       return view('templates.invoice', ['invoice' => $invoiceDocument,   'helper' => $invoice ]);
         } else {
-            return redirect('/');
+            return redirect('/stats');
         }
      }
 
 
      //**Download PDF of selected invoice */
 
-     public function downloadPDF($id) {
-        $helper = Invoice::findOrFail($id);
+     public function downloadPDF(Invoice $invoice) {
 
         $user = User::getCurrentUser();
 
-        if ($helper->user()->id === $user->id) {
-            $invoice = Invoice::getInvoiceForPdf($id);
+        if ($invoice->user()->id === $user->id) {
+            $invoiceDocument = Invoice::getInvoiceForPdf($invoice->id);
   
         
-            view()->share(['invoice' => $invoice, 'helper' =>$helper]);
+            view()->share(['invoice' => $invoiceDocument, 'helper' =>$invoice]);
             $pdf = app('dompdf.wrapper');
             $pdf->loadView('templates.invoice');
             
-            return $pdf->download("invoice-" . $id . ".pdf");
+            return $pdf->download("invoice-" . $invoice->id . ".pdf");
         } 
         else {
-            return redirect('/');
+            return redirect('/stats');
         }
       
       }
 
     //Display single invoice with form for adding items
-    public function single($id) {
-
-        $invoice = Invoice::findOrFail($id);
+    public function single(Invoice $invoice) {
         if (Auth::user()->id === $invoice->user()->id) {
             return view('invoices.single', [
                 'invoice' => $invoice
             ]);
         } else {
-            return redirect('/');
+            return redirect('/stats');
         }
 
 
@@ -101,15 +98,14 @@ class InvoiceController extends Controller
 
     }
     //Display form for adding invoices
-    public function create($id = null) {
-        if($id !== null) {
-            $invoice = Invoice::find($id);
+    public function create(Invoice $invoice = null) {
+        if($invoice !== null) {
             if (Auth::user()->id === $invoice->user()->id) {
                 return view('invoices.create', [
                     'invoice' => $invoice
                 ]);
             } else {
-                return redirect('/');
+                return redirect('/stats');
             }
 
         } else {
@@ -118,43 +114,36 @@ class InvoiceController extends Controller
     }       
 
     //Store invoice to database
-    public function store($id = null) {
+    public function store(Invoice $invoice = null) {
 
-        if ($id !== null) {
+        if ($invoice !== null) {
             $data = request()->validate([
                 'client_id' => 'required',
                 'date' => 'required|date',
                 'valute' => 'required|date',
             ]);
 
-            
-            $invoice = Invoice::find($id);
-
             if (Auth::user()->id === $invoice->user()->id) {
                 $invoice->update($data);
-                return redirect("/invoices/$id")->with('success', 'Invoice has been updated!');
+                return redirect("/invoices/$invoice->id")->with('success', 'Invoice has been updated!');
             } else {
-                return redirect('/');
+                return redirect('/stats');
             }
      
 
         } else { 
 
-        $data = request()->validate([
-            'client_id' => 'required',
-            'date' => 'required',
-            'valute' => 'required',
-        ]);
+                $data = request()->validate([
+                    'client_id' => 'required',
+                    'date' => 'required',
+                    'valute' => 'required',
+                ]);
 
-        $data['status'] = 0;
-        // $data['date'] = date('Y-m-d', time());
-        // $data['valute'] =  date('Y-m-d', time());
-        
+                $data['status'] = 0;
+                $invoice = Invoice::create($data);
 
-        $invoice = Invoice::create($data);
-
-        return redirect("/invoices/$invoice->id")->with('success', "New invoice has been successfully created!");
-        }
+                return redirect("/invoices/$invoice->id")->with('success', "New invoice has been successfully created!");
+             }
     }
 
     /**
@@ -163,23 +152,21 @@ class InvoiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete($id) {
-        $invoice = Invoice::find($id);
+    public function delete(Invoice $invoice) {
         if (Auth::user()->id === $invoice->user()->id) {
     
-            Invoice::destroy($id);
+            Invoice::destroy($invoice->id);
             return redirect("/invoices")->with('success', "Invoice has been successfully deleted!");
         }
         else {
-            redirect('/');
+            redirect('/stats');
         }
     
     }
 
 
     //Set "is paid" status to oposite of current
-    public function changeIsPaidStatus($id) {
-        $invoice = Invoice::find($id);
+    public function changeIsPaidStatus(Invoice $invoice) {
         if ($invoice->status === 0) {
             $data['status'] = 1;
             $data['date_paid'] = date('Y-m-d', strtotime(now()));
@@ -195,8 +182,7 @@ class InvoiceController extends Controller
         }
     }
     //Set "is paid" status to oposite of current
-    public function toggleStatus($id) {
-        $invoice = Invoice::find($id);
+    public function toggleStatus(Invoice $invoice) {
         if ($invoice->status === 0) {
             $data['status'] = 1;
             $data['date_paid'] = date('Y-m-d', strtotime(now()));

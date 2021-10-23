@@ -37,7 +37,7 @@
   <div class="flex">
   <aside class="bg-gray-900 text-gray-700 min-h-full w-1/5">
     <ul class="text-gray-200 text-lg">
-      <a href="/"> <li class="cursor-pointer px-6 py-2 mt-8  hover:bg-gray-800">Home</li></a>
+      <a href="/stats"> <li class="cursor-pointer px-6 py-2 mt-8  hover:bg-gray-800">Stats</li></a>
       <a href="/clients/create"> <li class="cursor-pointer px-6 py-2 my-4 hover:bg-gray-800">Add new client</li></a>
       <a href="/clients"> <li class="cursor-pointer px-6 py-2 my-4 hover:bg-gray-800">List all clients</li></a>
       <a href="/invoices/create"> <li class="cursor-pointer px-6 py-2 my-4 hover:bg-gray-800">Add new invoice</li></a>

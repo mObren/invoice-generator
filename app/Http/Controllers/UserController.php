@@ -10,7 +10,7 @@ use App\Models\Invoice;
 class UserController extends Controller
 {
 
-    public function home() {
+    public function stats() {
         $user = User::getCurrentUser();
         $invoices = Invoice::whereRelation('client', 'user_id', "=", $user->id);
         $helper = Invoice::whereRelation('client', 'user_id', "=", $user->id);
@@ -32,7 +32,7 @@ class UserController extends Controller
 
         }
 
-        return view('home', [
+        return view('user.stats', [
             'income' => number_format($totalIncome, 2, ',', '.'),
             'dues' => number_format($totalDues, 2, ',', '.'),
         ]);

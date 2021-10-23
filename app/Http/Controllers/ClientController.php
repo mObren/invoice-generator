@@ -18,9 +18,8 @@ class ClientController extends Controller
 
 
     //Show client profile
-    public function single($id) {
+    public function single(Client $client) {
 
-        $client = Client::findOrfail($id);
         if (Auth::user()->id === $client->user_id) {
             return view('clients.single', [
                 'client' => $client
@@ -28,22 +27,22 @@ class ClientController extends Controller
         }
         else 
         {
-            return redirect('/');
+            return redirect('/stats');
         }
 
     
     }
 
     //Display form for editing/creating client
-    public function create($id = null) {
-        if($id !== null) {
-            $client = Client::find($id);
+    public function create(Client $client = null) {
+        if($client !== null) {
+            // $client = Client::find($id);
             if (Auth::user()->id === $client->user_id) {
                 return view('clients.create', [
                     'client' => $client
                 ]);
             } else {
-                return redirect('/');
+                return redirect('/stats');
             }
 
         } else {
@@ -51,11 +50,11 @@ class ClientController extends Controller
         }
     }
     //Store new or updated client to database
-    public function store($id = null) {
+    public function store(Client $client = null) {
 
        
 
-        if ($id !== null) {
+        if ($client !== null) {
             $data = request()->validate([
                 'company_name' => 'required|max:255',
                 'email' => 'required|email',
@@ -66,12 +65,12 @@ class ClientController extends Controller
                 'tax_number' => 'required',
                 'zip_code' => 'required'
             ]);
-            $client = Client::find($id);
+
             if (Auth::user()->id === $client->user_id) {
                 $client->update($data);
-                return redirect("/clients/$id")->with('success', 'Client profile has been updated!');
+                return redirect("/clients/$client->id")->with('success', 'Client profile has been updated!');
             } else {
-                return redirect('/');
+                return redirect('/stats');
             }
      
 
@@ -95,15 +94,14 @@ class ClientController extends Controller
         }
     }
 
-    public function delete($id) {
-        $client = Client::find($id);
+    public function delete(Client $client) {
         if (Auth::user()->id === $client->user_id) {
     
-            Client::destroy($id);
+            $client->delete();
             return redirect("/clients")->with('success', "Client has been successfully deleted!");
         }
         else {
-            redirect('/');
+            redirect('/stats');
         }
     
     }
@@ -111,10 +109,10 @@ class ClientController extends Controller
 
     //Display all invoices for selected client
 
-    public function allInvoices($id) {
+    public function allInvoices(Client $client) {
 
-        $client = Client::find($id);
-        $invoices = Invoice::where('client_id', $id)->paginate(5);
+    
+        $invoices = Invoice::where('client_id', $client->id)->paginate(5);
         $invoices->load('items');
 
         if (Auth::user()->id === $client->user_id) {
@@ -124,7 +122,7 @@ class ClientController extends Controller
                 'client' => $client
             ]);
         } else {
-            return redirect('/');
+            return redirect('/stats');
         }
 
 

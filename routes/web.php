@@ -19,7 +19,11 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', [UserController::class, 'home'])->middleware('auth', 'activeUser');
+Route::get('/', function (){
+    return view('home');
+});
+
+
 
 
 //Register routes
@@ -34,33 +38,35 @@ Route::get('/logout', [SessionController::class, 'destroy'])->middleware('auth')
 
 //User routes
 Route::get('/profile', [UserController::class, 'profile'])->middleware('auth', 'activeUser');
+Route::get('/stats', [UserController::class, 'stats'])->middleware('auth', 'activeUser');
+
 
 
 //Client routes
 Route::prefix('clients')->group(function () {
-    Route::get('/create/{id?}', [ClientController::class, 'create'])->middleware('auth', 'activeUser');
-    Route::get('/invoices/{id?}', [ClientController::class, 'allInvoices'])->middleware('auth', 'activeUser');    
-    Route::post('/save/{id?}', [ClientController::class, 'store'])->middleware('auth', 'activeUser');
-    Route::get('/delete/{id}', [ClientController::class, 'delete'])->middleware('auth', 'activeUser');
-    Route::get('/{id}', [ClientController::class, 'single'])->middleware('auth', 'activeUser');
+    Route::get('/create/{client?}', [ClientController::class, 'create'])->middleware('auth', 'activeUser');
+    Route::get('/invoices/{client?}', [ClientController::class, 'allInvoices'])->middleware('auth', 'activeUser');    
+    Route::post('/save/{client?}', [ClientController::class, 'store'])->middleware('auth', 'activeUser');
+    Route::get('/delete/{client}', [ClientController::class, 'delete'])->middleware('auth', 'activeUser');
+    Route::get('/{client}', [ClientController::class, 'single'])->middleware('auth', 'activeUser');
     Route::get('', [ClientController::class, 'index'])->middleware('auth', 'activeUser');
 });
 
 //Invoice routes
 Route::prefix('invoices')->group( function () {
-    Route::get('/create/{id?}', [InvoiceController::class, 'create'])->middleware('auth', 'activeUser');
-    Route::post('/save/{id?}', [InvoiceController::class, 'store'])->middleware('auth', 'activeUser');
-    Route::get('/delete/{id}', [InvoiceController::class, 'delete'])->middleware('auth', 'activeUser');
-    Route::get('/change/{id}', [InvoiceController::class, 'changeIsPaidStatus'])->middleware('auth', 'activeUser');
-    Route::get('/toggle/{id}', [InvoiceController::class, 'toggleStatus'])->middleware('auth', 'activeUser');
-    Route::get('/export/{id}', [InvoiceController::class, 'export'])->middleware('auth', 'activeUser');
-    Route::get('/pdf/{id}', [InvoiceController::class, 'downloadPDF'])->middleware('auth', 'activeUser');;
-    Route::get('/{id}', [InvoiceController::class, 'single'])->middleware('auth', 'activeUser');
+    Route::get('/create/{invoice?}', [InvoiceController::class, 'create'])->middleware('auth', 'activeUser');
+    Route::post('/save/{invoice?}', [InvoiceController::class, 'store'])->middleware('auth', 'activeUser');
+    Route::get('/delete/{invoice}', [InvoiceController::class, 'delete'])->middleware('auth', 'activeUser');
+    Route::get('/change/{invoice}', [InvoiceController::class, 'changeIsPaidStatus'])->middleware('auth', 'activeUser');
+    Route::get('/toggle/{invoice}', [InvoiceController::class, 'toggleStatus'])->middleware('auth', 'activeUser');
+    Route::get('/export/{invoice}', [InvoiceController::class, 'export'])->middleware('auth', 'activeUser');
+    Route::get('/pdf/{invoice}', [InvoiceController::class, 'downloadPDF'])->middleware('auth', 'activeUser');;
+    Route::get('/{invoice}', [InvoiceController::class, 'single'])->middleware('auth', 'activeUser');
     Route::get('', [InvoiceController::class, 'index'])->middleware('auth', 'activeUser');
 
 });
 
-//Item routes
+//Item routesid
 Route::prefix('items')->group( function () {
     Route::post('/create', [ItemController::class, 'store'])->middleware('auth', 'activeUser');
     Route::get('/delete/{id}', [ItemController::class, 'delete'])->middleware('auth', 'activeUser');
