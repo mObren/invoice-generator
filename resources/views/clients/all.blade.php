@@ -45,7 +45,7 @@
             <x-table-cell>City</x-table-cell>
             <td class="border-2 px-2 uppercase text-gray-700 py-4">Country</td>           
             <td class="border-2 px-2 uppercase text-gray-700 py-4">Zip code</td>           
-             <x-table-cell>To pay</x-table-cell>
+             <x-table-cell>Total to pay</x-table-cell>
             <x-table-cell>Options</x-table-cell>
         </tr>
 
