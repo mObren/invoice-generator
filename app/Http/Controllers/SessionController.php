@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserLoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -23,13 +24,10 @@ class SessionController extends Controller
     }
 
 
-    public function login() {
+    public function login(UserLoginRequest $request) {
 
-        $data = request()->validate([
-            "email" => 'required|email',
-            "password" => 'required',
-        ]);
-        if (Auth::attempt($data)) {
+        $validated = $request->validated();
+        if (Auth::attempt($validated)) {
                 return redirect('/profile')->with('success', 'Welcome back, ' . auth()->user()->username . '!');
             // }
             }

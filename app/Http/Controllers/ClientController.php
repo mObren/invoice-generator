@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ClientStoreRequest;
 use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Invoice;
@@ -50,24 +51,15 @@ class ClientController extends Controller
         }
     }
     //Store new or updated client to database
-    public function store(Client $client = null) {
+    public function store(Client $client = null, ClientStoreRequest $request) {
 
        
 
         if ($client !== null) {
-            $data = request()->validate([
-                'company_name' => 'required|max:255',
-                'email' => 'required|email',
-                'address' => 'required',
-                'city' => 'required|max:255',
-                'country' => 'required|max:255',
-                'registration_number' => 'required',
-                'tax_number' => 'required',
-                'zip_code' => 'required'
-            ]);
+            $validated = $request->validated();
 
             if (Auth::user()->id === $client->user_id) {
-                $client->update($data);
+                $client->update($validated);
                 return redirect("/clients/$client->id")->with('success', 'Client profile has been updated!');
             } else {
                 return redirect('/stats');
@@ -77,19 +69,11 @@ class ClientController extends Controller
         } else { 
 
         $userId = auth()->user()->id;
-        $data = request()->validate([
-            'company_name' => 'required|max:255',
-            'email' => 'required|email',
-            'address' => 'required',
-            'city' => 'required|max:255',
-            'country' => 'required|max:255',
-            'registration_number' => 'required',
-            'tax_number' => 'required',
-            'zip_code' => 'required'
-        ]);
-        $data['user_id'] = $userId;
+        $validated = $request->validated();
 
-        Client::create($data);
+        $validated['user_id'] = $userId;
+
+        Client::create($validated);
         return redirect("/clients")->with('success', "New client has been successfully created!");
         }
     }

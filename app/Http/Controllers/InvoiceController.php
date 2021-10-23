@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InvoiceStoreRequest;
 use Illuminate\Http\Request;
 use App\Models\Invoice;
 use Illuminate\Support\Facades\Auth;
@@ -114,17 +115,13 @@ class InvoiceController extends Controller
     }       
 
     //Store invoice to database
-    public function store(Invoice $invoice = null) {
+    public function store(Invoice $invoice = null, InvoiceStoreRequest $request) {
 
         if ($invoice !== null) {
-            $data = request()->validate([
-                'client_id' => 'required',
-                'date' => 'required|date',
-                'valute' => 'required|date',
-            ]);
+            $validated = $request->validated();
 
             if (Auth::user()->id === $invoice->user()->id) {
-                $invoice->update($data);
+                $invoice->update($validated);
                 return redirect("/invoices/$invoice->id")->with('success', 'Invoice has been updated!');
             } else {
                 return redirect('/stats');
@@ -133,14 +130,9 @@ class InvoiceController extends Controller
 
         } else { 
 
-                $data = request()->validate([
-                    'client_id' => 'required',
-                    'date' => 'required',
-                    'valute' => 'required',
-                ]);
-
-                $data['status'] = 0;
-                $invoice = Invoice::create($data);
+                $validated = $request->validated();
+                $validated['status'] = 0;
+                $invoice = Invoice::create($validated);
 
                 return redirect("/invoices/$invoice->id")->with('success', "New invoice has been successfully created!");
              }

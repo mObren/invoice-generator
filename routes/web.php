@@ -69,5 +69,5 @@ Route::prefix('invoices')->group( function () {
 //Item routesid
 Route::prefix('items')->group( function () {
     Route::post('/create', [ItemController::class, 'store'])->middleware('auth', 'activeUser');
-    Route::get('/delete/{id}', [ItemController::class, 'delete'])->middleware('auth', 'activeUser');
+    Route::get('/delete/{item}', [ItemController::class, 'delete'])->middleware('auth', 'activeUser');
 });
