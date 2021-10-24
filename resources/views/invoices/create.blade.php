@@ -36,10 +36,13 @@
             <div class="mb-4">
                 <label class="font-bold text-gray-700 text-sm mr-2" for="date">Date</label>
                 <input class="py-1 px-2 w-full rounded border border-gray-500 focus:border-blue-400 outline-none"
-                 type="date" 
+                 type="date"
                  value="{{ date('m/d/Y', strtotime($invoice->date ?? '')) ?? '' }} "name="date" id="date">
             </div>
-            {{-- @dd(date('m/d/Y', strtotime($invoice ?? ''->date))); --}}
+            <div>
+                
+            </div>
+
 
             @error('date')
            <x-form-error>{{$message}}</x-form-error>

@@ -33,17 +33,19 @@
                 <td class="border-2 px-6 py-2">
                   <x-button-dropdown> 
                 <a href="/invoices/{{$invoice->id}}" 
-                    class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">
                   View
                 </a>
                 <a href="/invoices/create/{{$invoice->id}}" 
-                    class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">
                   Edit
                 </a>
-                <a href="/invoices/delete/{{$invoice->id}}" 
-                    class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
-                Delete
-                </a>
+                <form  action="/invoices/delete/{{$invoice->id}}" method="post">
+                    @csrf
+                    <p> 
+                    <input class="block bg-white cursor-pointer px-4 py-2 text-sm pr-16 text-gray-700 hover:bg-blue-500 hover:text-white" value ="Delete" type="submit">
+                    </p>
+                </form>
                   </x-button-dropdown>
                 </td>
     

@@ -69,7 +69,9 @@
 </div>
 </div>
 
- 
+<div class="bg-gray-900">
+  footer
+</div>
     
 </body>
 </html>

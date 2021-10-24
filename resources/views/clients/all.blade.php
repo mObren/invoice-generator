@@ -61,19 +61,21 @@
             <td class="border-2 text-xs px-4 py-2">{{$client->getTotalToPay()}} rsd</td>
             <td class="border-2 px-4 py-2">
               <x-button-dropdown>   <a href="/clients/{{$client->id}}" 
-                class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+                class="block px-4 py-2 text-sm  text-gray-700 hover:bg-blue-500 hover:text-white">
               View
             </a>
             <a href="/clients/create/{{$client->id}}" 
-                class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+                class="block px-4 py-2 text-sm  text-gray-700 hover:bg-blue-500 hover:text-white">
               Edit
             </a>
-            <a href="/clients/delete/{{$client->id}}" 
-                class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
-                Delete
-            </a>
+            <form  action="/clients/delete/{{$client->id}}" method="post">
+              @csrf
+              <p> 
+              <input class="block bg-white cursor-pointer px-4 py-2 text-sm pr-16 text-gray-700 hover:bg-blue-500 hover:text-white" value ="Delete" type="submit">
+              </p>
+            </form>
             <a href="/clients/invoices/{{$client->id}}" 
-              class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+              class="block px-4 py-2 text-sm  text-gray-700 hover:bg-blue-500 hover:text-white">
               All invoices
           </a>
               </x-button-dropdown>

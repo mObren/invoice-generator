@@ -131,6 +131,7 @@ header {
 .button:hover {
     background: #0d9dbb;
 }
+
 .button_back {
     position: absolute;
     left: 12px;
@@ -163,6 +164,10 @@ input {
     display: inline-block;
     box-sizing: border-box;
     transition: 0.5s;
+}
+
+input[type="date"]::-webkit-input-placeholder {
+    visibility: hidden !important;
 }
 
 .errors {

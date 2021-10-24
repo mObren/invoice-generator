@@ -12,9 +12,17 @@
     @if ($invoice->status === 0)
         
     
-        <a class="rounded p-2 text-green-700 font-semibold bg-gray-300 text-sm cursor-pointer" href="/invoices/change/{{$invoice->id}}">Mark as paid</a>
+        <a 
+        class="rounded p-2 text-green-700 mr-1 font-semibold bg-gray-300 text-sm cursor-pointer" 
+        href="/invoices/change/{{$invoice->id}}">
+        Mark as paid
+        </a>
     @else
-         <a class="rounded p-2 text-red-700 font-semibold bg-gray-300 text-sm cursor-pointer" href="/invoices/change/{{$invoice->id}}">Mark as unpaid</a>
+         <a 
+         class="rounded p-2 text-red-700 mr-1 font-semibold bg-gray-300 text-sm cursor-pointer" 
+         href="/invoices/change/{{$invoice->id}}">
+         Mark as unpaid
+        </a>
 
     @endif
     </div>
@@ -33,10 +41,16 @@
     <div class="inline">
         <a class="rounded p-2 text-yellow-700 font-semibold bg-gray-300 text-sm cursor-pointer"  href="/invoices/create/{{$invoice->id}}">Edit</a>
     </div>
-    <div class="inline">
-        <a class="rounded p-2 text-red-700 font-semibold bg-gray-300 text-sm cursor-pointer"  href="/invoices/delete/{{$invoice->id}}">Delete</a>
-    </div>
+   
+        <form class="inline" action="/invoices/delete/{{$invoice->id}}" method="POST">
+        @csrf
+         <input class="rounded p-2 text-red-700 font-semibold bg-gray-300 text-sm cursor-pointer" type="submit" value="Delete">
+        
+        </form>
+  
+  
 </div>
+
 
 <div class="absolute justify-center w-9/12 mt-6 py-6 px-6 bg-white rounded shadow-lg right-12">
 
@@ -185,7 +199,17 @@
             <p class="h-8 text-sm font-semibold p-1">Delete item</p>
             @foreach($invoice->items as $item)
             
-           <p class="h-8 text-xs text-red-700 font-semibold p-1"><a href="/items/delete/{{$item->id}}">Remove</a></p> 
+           <p>
+            
+            <form class="inline" action="/items/delete/{{$item->id}}" method="POST">
+            @csrf
+             <input class="h-8 bg-white cursor-pointer text-xs text-red-700 font-semibold p-1"  type="submit" value="Remove">
+            
+            </form>
+         
+            </p> 
+
+      
             @endforeach       
 
         </div>

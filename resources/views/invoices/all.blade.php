@@ -139,17 +139,20 @@
         <x-small-dropdown>
 
             <a href="/invoices/{{$invoice->id}}" 
-                class="block px-4 py-2 text-xs capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+                class="block px-4 py-2 text-xs  text-gray-700 hover:bg-blue-500 hover:text-white">
               View
             </a>
             <a href="/invoices/create/{{$invoice->id}}" 
-                class="block px-4 py-2 text-xs capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+                class="block px-4 py-2 text-xs  text-gray-700 hover:bg-blue-500 hover:text-white">
               Edit
             </a>
-            <a href="/invoices/delete/{{$invoice->id}}" 
-                class="block px-4 py-2 text-xs capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
-            Delete
-            </a>
+            <form action="/invoices/delete/{{$invoice->id}}" method="post">
+            @csrf
+            <p> 
+            <input class="block px-4 py-2 text-xs text-gray-700 bg-gray-100 cursor-pointer pr-16 hover:bg-blue-500 hover:text-white" value ="Delete" type="submit">
+
+            </p>
+            </form>
             <a href="/invoices/toggle/{{$invoice->id}}" 
                 class="block px-4 py-2 text-xs text-gray-700 hover:bg-blue-500 hover:text-white">
             Change status

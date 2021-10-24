@@ -69,7 +69,7 @@ class Invoice extends Model
     }
 
 
-    //Sum all items for an inovice
+    //Sum all items for an inovice and format the result
     public function getTotal() {
         $total = 0;
         $items = $this->items;
@@ -79,6 +79,8 @@ class Invoice extends Model
         }
         return number_format($total, 2, ',', '.');
     }
+
+    //Sum all items for an invoice
     public function getTotalNumeric() {
         $total = 0;
         $items = $this->items;

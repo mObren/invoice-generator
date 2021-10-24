@@ -47,7 +47,7 @@ Route::prefix('clients')->group(function () {
     Route::get('/create/{client?}', [ClientController::class, 'create'])->middleware('auth', 'activeUser');
     Route::get('/invoices/{client?}', [ClientController::class, 'allInvoices'])->middleware('auth', 'activeUser');    
     Route::post('/save/{client?}', [ClientController::class, 'store'])->middleware('auth', 'activeUser');
-    Route::get('/delete/{client}', [ClientController::class, 'delete'])->middleware('auth', 'activeUser');
+    Route::post('/delete/{client}', [ClientController::class, 'delete'])->middleware('auth', 'activeUser');
     Route::get('/{client}', [ClientController::class, 'single'])->middleware('auth', 'activeUser');
     Route::get('', [ClientController::class, 'index'])->middleware('auth', 'activeUser');
 });
@@ -56,7 +56,7 @@ Route::prefix('clients')->group(function () {
 Route::prefix('invoices')->group( function () {
     Route::get('/create/{invoice?}', [InvoiceController::class, 'create'])->middleware('auth', 'activeUser');
     Route::post('/save/{invoice?}', [InvoiceController::class, 'store'])->middleware('auth', 'activeUser');
-    Route::get('/delete/{invoice}', [InvoiceController::class, 'delete'])->middleware('auth', 'activeUser');
+    Route::post('/delete/{invoice}', [InvoiceController::class, 'delete'])->middleware('auth', 'activeUser');
     Route::get('/change/{invoice}', [InvoiceController::class, 'changeIsPaidStatus'])->middleware('auth', 'activeUser');
     Route::get('/toggle/{invoice}', [InvoiceController::class, 'toggleStatus'])->middleware('auth', 'activeUser');
     Route::get('/export/{invoice}', [InvoiceController::class, 'export'])->middleware('auth', 'activeUser');
@@ -69,5 +69,5 @@ Route::prefix('invoices')->group( function () {
 //Item routesid
 Route::prefix('items')->group( function () {
     Route::post('/create', [ItemController::class, 'store'])->middleware('auth', 'activeUser');
-    Route::get('/delete/{item}', [ItemController::class, 'delete'])->middleware('auth', 'activeUser');
+    Route::post('/delete/{item}', [ItemController::class, 'delete'])->middleware('auth', 'activeUser');
 });
