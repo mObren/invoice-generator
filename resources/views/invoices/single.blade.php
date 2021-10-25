@@ -36,7 +36,7 @@
     </div>
     
     <div class="inline">
-        <a class="rounded p-2 text-blue-700 font-semibold bg-gray-300 text-sm cursor-pointer" href="">Send to client</a>
+        <a class="rounded p-2 text-blue-700 font-semibold bg-gray-300 text-sm cursor-pointer" href="/invoices/send/{{$invoice->id}}">Send to client</a>
     </div>
     <div class="inline">
         <a class="rounded p-2 text-yellow-700 font-semibold bg-gray-300 text-sm cursor-pointer"  href="/invoices/create/{{$invoice->id}}">Edit</a>

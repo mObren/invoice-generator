@@ -5,6 +5,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ItemController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
 
@@ -63,6 +64,9 @@ Route::prefix('invoices')->group( function () {
     Route::get('/pdf/{invoice}', [InvoiceController::class, 'downloadPDF'])->middleware('auth', 'activeUser');;
     Route::get('/{invoice}', [InvoiceController::class, 'single'])->middleware('auth', 'activeUser');
     Route::get('', [InvoiceController::class, 'index'])->middleware('auth', 'activeUser');
+    //Mail route
+    Route::get('/send/{invoice}', [SendMailController::class, 'send'])->middleware('auth', 'activeUser');
+
 
 });
 
@@ -71,3 +75,5 @@ Route::prefix('items')->group( function () {
     Route::post('/create', [ItemController::class, 'store'])->middleware('auth', 'activeUser');
     Route::post('/delete/{item}', [ItemController::class, 'delete'])->middleware('auth', 'activeUser');
 });
+
+

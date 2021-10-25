@@ -98,7 +98,7 @@
     <div class="p-2 m-3 w-44">
         <p class="h-8 text-sm font-semibold p-1">Client</p>
         @foreach($invoices as $invoice)
-        <p class="h-8 text-xs text-gray-700 font-semibold p-1">
+        <p class="h-8 text-xs text-blue-900 hover:text-blue-800 font-semibold p-1">
             <a href="/clients/{{$invoice->client_id}}">{{$invoice->client->company_name}}</a>
         </p>
         @endforeach

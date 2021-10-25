@@ -8,7 +8,7 @@
 <div class="justify-items-center py-2 px-6 ml-28">
     <h2 class="text-2xl text-gray-700 font-bold uppercase">Informations about client</h2>
 </div>
-<div class="justify-items-center py-6 px-6 ml-28">
+<div class="justify-items-center bg-white py-6 px-6 ml-28">
     <table class="w-full whitespace-nowrap">
         <tbody class="text-gray-700">
             <tr>
@@ -53,7 +53,7 @@
             </tr>
             <tr>
                 <td class="border px-6 py-2 font-bold">Total:</td>
-                <td class="border px-6 py-2">${{$client->getTotalToPay()}}</td>
+                <td class="border px-6 py-2">{{$client->getTotalToPay()}} rsd</td>
 
             </tr>
             <tr>
