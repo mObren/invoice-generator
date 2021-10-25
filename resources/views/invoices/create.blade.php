@@ -8,7 +8,7 @@
 <div class="flex items-center justify-center">
 
     <div class="bg-white p-8 rounded-lg shadow 2x1 w-1/2">
-        <h2 class="text-2xl font-bold mb-8 text-gray-700">Create invoice</h2>
+        <h2 class="text-2xl font-bold mb-8 text-gray-700">{{isset($invoice) ? 'Edit' : 'Create' }} invoice</h2>
         <form class="space-y-3" action="/invoices/save/{{$invoice->id ?? ''}}" method="POST">
             @csrf
           <!-- Client -->

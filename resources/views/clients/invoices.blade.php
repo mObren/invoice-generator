@@ -9,7 +9,7 @@
 
 
 <div class="flex">
-    <table class="w-full whitespace-nowrap border-gray-500 border-4">
+    <table class="w-full bg-white whitespace-nowrap border-gray-500 border-4">
         <thead class="">
             <tr class="text-left font-bold">
                 <x-table-cell>Invoice created</x-table-cell>

@@ -37,7 +37,7 @@
 
 
 <div class="flex mb-5">
-<table class="w-full whitespace-nowrap border-gray-500 ml-2 mt-16 border-4">
+<table class="w-full whitespace-nowrap bg-white border-gray-500 ml-2 mt-16 border-4">
     <thead class="">
         <tr class="text-left font-bold">
             <x-table-cell>Company name</x-table-cell>
@@ -54,12 +54,12 @@
         @foreach($clients as $client)
         <tr>
             <td class="font-bold border-2 px-4 py-2"><a href="/clients/{{$client->id}}">{{$client->company_name}}</a></td>
-            <td class="border-2 px-4 py-2">{{$client->address}}</td>
-            <td class="border-2 px-4 py-2">{{$client->city}}</td>
-            <td class="border-2 px-4 py-2">{{$client->country}}</td>
-            <td class="border-2 px-2 py-2">{{$client->zip_code}}</td>
-            <td class="border-2 text-xs px-4 py-2">{{$client->getTotalToPay()}} rsd</td>
-            <td class="border-2 px-4 py-2">
+            <td class="border-2 text-xs px-4 py-2">{{$client->address}}</td>
+            <td class="border-2 text-xs px-4 py-2">{{$client->city}}</td>
+            <td class="border-2 text-xs px-4 py-2">{{$client->country}}</td>
+            <td class="border-2 text-xs px-2 py-2">{{$client->zip_code}}</td>
+            <td class="border-2 text-xs text-xs px-4 py-2">{{$client->getTotalToPay()}} rsd</td>
+            <td class="border-2 text-xs px-4 py-2">
               <x-button-dropdown>   <a href="/clients/{{$client->id}}" 
                 class="block px-4 py-2 text-sm  text-gray-700 hover:bg-blue-500 hover:text-white">
               View

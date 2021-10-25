@@ -28,7 +28,7 @@ class SessionController extends Controller
 
         $validated = $request->validated();
         if (Auth::attempt($validated)) {
-                return redirect('/profile')->with('success', 'Welcome back, ' . auth()->user()->username . '!');
+                return redirect('/invoices')->with('success', 'Welcome back, ' . auth()->user()->username . '!');
             // }
             }
             throw ValidationException::withMessages([

@@ -81,7 +81,7 @@ class ClientController extends Controller
     public function delete(Client $client) {
         if (Auth::user()->id === $client->user_id) {
     
-            $client->delete();
+            Client::destroy($client->id);
             return redirect("/clients")->with('success', "Client has been successfully deleted!");
         }
         else {

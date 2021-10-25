@@ -29,8 +29,8 @@ class ItemFactory extends Factory
         return [
             'invoice_id' => array_rand(array_flip($invoicesIds)),
             'service' => $this->faker->jobTitle(),
-            'price'=> $this->faker->randomFloat(2, 20, 9999999),
-            'quantity' => rand(0, 100),
+            'price'=> $this->faker->randomFloat(2, 20, 999999),
+            'quantity' => rand(0, 50),
             'pdv' => 20
         ];
     }
