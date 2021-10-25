@@ -40,7 +40,7 @@ class ItemStoreRequest extends FormRequest
             'price.required' => 'Price is required!',
             'pdv.required' => "Tax is required!",
             'pdv.numeric' => "Tax must be in number format.",
-            'pdv.gt:0' => "Tax must be greater than zero."
+            'pdv.gt' => "Tax must be greater than zero."
 
         ];
     }

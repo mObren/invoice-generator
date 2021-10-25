@@ -5,4 +5,4 @@ We are sending you your invoice as attachment.
 For all additional informations, please, contact us.
 Kind regards!
 
-Yours sincerely , {{$invoice->user()->company_name}}.
+Yours sincerely , {{$invoice->user()->username}}.
