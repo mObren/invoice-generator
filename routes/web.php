@@ -60,8 +60,7 @@ Route::prefix('invoices')->group( function () {
     Route::get('/create/{invoice?}', [InvoiceController::class, 'create'])->middleware('auth', 'activeUser');
     Route::post('/save/{invoice?}', [InvoiceController::class, 'store'])->middleware('auth', 'activeUser');
     Route::post('/delete/{invoice}', [InvoiceController::class, 'delete'])->middleware('auth', 'activeUser');
-    Route::get('/change/{invoice}', [InvoiceController::class, 'changeIsPaidStatus'])->middleware('auth', 'activeUser');
-    Route::get('/toggle/{invoice}', [InvoiceController::class, 'toggleStatus'])->middleware('auth', 'activeUser');
+    Route::get('/toggle/{invoice}', [InvoiceController::class, 'changeIsPaidStatus'])->middleware('auth', 'activeUser');
     Route::get('/export/{invoice}', [InvoiceController::class, 'export'])->middleware('auth', 'activeUser');
     Route::get('/pdf/{invoice}', [InvoiceController::class, 'downloadPDF'])->middleware('auth', 'activeUser');
     Route::get('/add-to-client/{client}', [InvoiceController::class, 'addToClient'])->middleware('auth', 'activeUser');

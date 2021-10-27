@@ -14,13 +14,13 @@
     
         <a 
         class="rounded p-2 text-green-700 mr-1 font-semibold bg-gray-300 text-sm cursor-pointer" 
-        href="/invoices/change/{{$invoice->id}}">
+        href="/invoices/toggle/{{$invoice->id}}">
         Mark as paid
         </a>
     @else
          <a 
          class="rounded p-2 text-red-700 mr-1 font-semibold bg-gray-300 text-sm cursor-pointer" 
-         href="/invoices/change/{{$invoice->id}}">
+         href="/invoices/toggle/{{$invoice->id}}">
          Mark as unpaid
         </a>
 

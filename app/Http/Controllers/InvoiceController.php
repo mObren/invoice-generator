@@ -13,6 +13,7 @@ use LaravelDaily\Invoices\Invoice as InvoiceDocument;
 use LaravelDaily\Invoices\Classes\Party;
 use LaravelDaily\Invoices\Classes\InvoiceItem;
 use Barryvdh\DomPDF\PDF as PDF;
+use Illuminate\Support\Facades\Redirect;
 
 class InvoiceController extends Controller
 {
@@ -178,32 +179,24 @@ class InvoiceController extends Controller
 
     //Set "is paid" status to oposite of current
     public function changeIsPaidStatus(Invoice $invoice) {
-        if ($invoice->status === 0) {
-            $data['status'] = 1;
-            $data['date_paid'] = date('Y-m-d', strtotime(now()));
-            $invoice->update($data);
-        return redirect("/invoices/$invoice->id")->with('success', "You set invoice status to: paid!");
 
+        if (Auth::user()->id === $invoice->user()->id) {
+            if ($invoice->status === 0) {
+                $data['status'] = 1;
+                $data['date_paid'] = date('Y-m-d', strtotime(now()));
+                $invoice->update($data);
+            return Redirect::back()->with('success',"You set invoice no. $invoice->id status to: paid!");
+    
+            } else {
+                $data['status'] = 0;
+                $data['date_paid'] = NULL;
+                $invoice->update($data);
+           return Redirect::back()->with('success',"You set invoice no. $invoice->id status to: not paid!");
+            }
         } else {
-            $data['status'] = 0;
-            $data['date_paid'] = NULL;
-            $invoice->update($data);
-        return redirect("/invoices/$invoice->id")->with('success', "You set invoice status to: not paid!");
-
+            return redirect('/');
         }
+       
     }
-    //Set "is paid" status to oposite of current
-    public function toggleStatus(Invoice $invoice) {
-        if ($invoice->status === 0) {
-            $data['status'] = 1;
-            $data['date_paid'] = date('Y-m-d', strtotime(now()));
-            $invoice->update($data);
-        } else {
-            $data['status'] = 0;
-            $data['date_paid'] = NULL;
-            $invoice->update($data);
 
-        }
-        return redirect("/invoices")->with('success', "Invoice's no. $invoice->id status has been changed!");
-    }
 }
