@@ -173,7 +173,7 @@
 </div>
    
 
-{{$results->links()}}
+{{$invoices->links()}}
 
 @endempty
 

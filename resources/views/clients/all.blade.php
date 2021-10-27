@@ -68,16 +68,21 @@
                 class="block px-4 py-2 text-sm  text-gray-700 hover:bg-blue-500 hover:text-white">
               Edit
             </a>
+            <a href="/invoices/add-to-client/{{$client->id}}" 
+              class="block px-4 py-2 text-sm  text-gray-700 hover:bg-blue-500 hover:text-white">
+              Add invoice
+          </a>
+            <a href="/clients/invoices/{{$client->id}}" 
+              class="block px-4 py-2 text-sm  text-gray-700 hover:bg-blue-500 hover:text-white">
+              All invoices
+          </a>
             <form  action="/clients/delete/{{$client->id}}" method="post">
               @csrf
               <p> 
               <input class="block bg-white cursor-pointer px-4 py-2 text-sm pr-16 text-gray-700 hover:bg-blue-500 hover:text-white" value ="Delete" type="submit">
               </p>
             </form>
-            <a href="/clients/invoices/{{$client->id}}" 
-              class="block px-4 py-2 text-sm  text-gray-700 hover:bg-blue-500 hover:text-white">
-              All invoices
-          </a>
+        
               </x-button-dropdown>
             </td>
 

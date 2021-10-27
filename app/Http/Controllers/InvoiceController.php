@@ -24,25 +24,19 @@ class InvoiceController extends Controller
     public function index()
     {
         
-        $invoices = [];
         $userId = Auth::user()->id;
         $collection = Invoice::with(['client:id,company_name', 'items'])
         ->whereRelation('client', 'user_id', '=', $userId);
         
         //dd(request('search_status'));
-        $results = $collection
+        $invoices = $collection
             ->orderBy('date', 'ASC')
             ->filter(request([
             'search_company', 'search_status', 'search_date_from', 'search_date_to', 'search_valute_from', 'search_valute_to']))
             ->paginate(10);
-        foreach ($results as $item) {
-                $invoices[] = $item;
-            
-        }
-
+ 
         return view('invoices.all', [
             'invoices' => $invoices,
-            'results' => $results
         ]);   
      }
      
@@ -112,7 +106,32 @@ class InvoiceController extends Controller
         } else {
             return view('invoices.create');
         }
-    }       
+    }
+    
+    //Display form for creating invoice for targeted client
+    public function addToClient(Client $client) {
+        if (Auth::user()->id === $client->user_id)
+        {
+            return view('invoices.add-to-client', ['client' => $client]);
+        } else {
+            return redirect('/stats');
+
+        }
+    }
+
+
+    //Store invoice for targeted client
+    public  function addInvoiceToClient(Client $client, InvoiceStoreRequest $request) {
+        if (Auth::user()->id === $client->user_id) {
+            $validated = $request->validated();
+            $invoice = Invoice::create($validated);
+            return redirect("/invoices/$invoice->id")->with('success', 'Invoice has been updated!');
+            
+        } else {
+            return redirect('/stats');
+
+        }
+    }
 
     //Store invoice to database
     public function store(Invoice $invoice = null, InvoiceStoreRequest $request) {

@@ -67,7 +67,7 @@
 <div class="flex float-right">
 
 
-        <x-button-add><a class="text-gray-200 font-bold" href="/invoices/create">+Add invoice</a></x-button-add>
+        <x-button-add><a class="text-gray-200 font-bold" href="/invoices/add-to-client/{{$client->id}}">+Add invoice</a></x-button-add>
     
 
         <a class="bg-yellow-500 rounded-lg ml-3 text-gray-200 font-bold px-4 py-2 hover:bg-yellow-400"

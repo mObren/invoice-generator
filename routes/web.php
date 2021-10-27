@@ -61,7 +61,9 @@ Route::prefix('invoices')->group( function () {
     Route::get('/change/{invoice}', [InvoiceController::class, 'changeIsPaidStatus'])->middleware('auth', 'activeUser');
     Route::get('/toggle/{invoice}', [InvoiceController::class, 'toggleStatus'])->middleware('auth', 'activeUser');
     Route::get('/export/{invoice}', [InvoiceController::class, 'export'])->middleware('auth', 'activeUser');
-    Route::get('/pdf/{invoice}', [InvoiceController::class, 'downloadPDF'])->middleware('auth', 'activeUser');;
+    Route::get('/pdf/{invoice}', [InvoiceController::class, 'downloadPDF'])->middleware('auth', 'activeUser');
+    Route::get('/add-to-client/{client}', [InvoiceController::class, 'addToClient'])->middleware('auth', 'activeUser');
+    Route::post('/save-for-client/{client}', [InvoiceController::class, 'addInvoiceToClient'])->middleware('auth', 'activeUser');
     Route::get('/{invoice}', [InvoiceController::class, 'single'])->middleware('auth', 'activeUser');
     Route::get('', [InvoiceController::class, 'index'])->middleware('auth', 'activeUser');
     //Mail route
@@ -75,5 +77,6 @@ Route::prefix('items')->group( function () {
     Route::post('/create', [ItemController::class, 'store'])->middleware('auth', 'activeUser');
     Route::post('/delete/{item}', [ItemController::class, 'delete'])->middleware('auth', 'activeUser');
 });
+
 
 
