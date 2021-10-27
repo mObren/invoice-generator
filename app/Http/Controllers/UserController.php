@@ -51,4 +51,16 @@ class UserController extends Controller
     ]);
       
     }
+    public function delete(User $user)
+    {   
+        if ($user->id === Auth::user()->id) {
+            
+            // Auth::logout();
+            User::destroy($user->id);
+            return redirect("/")->with('success', 'Your account has been deleted.');
+
+        }
+
+
+    }
 }

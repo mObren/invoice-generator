@@ -40,6 +40,8 @@ Route::get('/logout', [SessionController::class, 'destroy'])->middleware('auth')
 //User routes
 Route::get('/profile', [UserController::class, 'profile'])->middleware('auth', 'activeUser');
 Route::get('/stats', [UserController::class, 'stats'])->middleware('auth', 'activeUser');
+Route::post('/user/delete/{user}', [UserController::class, 'delete'])->middleware('auth', 'activeUser');
+
 
 
 

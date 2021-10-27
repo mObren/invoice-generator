@@ -40,6 +40,10 @@
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">
                   Edit
                 </a>
+                <a href="/invoices/change/{{$invoice->id}}" 
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">
+                Change status
+                </a>
                 <form  action="/invoices/delete/{{$invoice->id}}" method="post">
                     @csrf
                     <p> 
