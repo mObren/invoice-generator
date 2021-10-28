@@ -57,7 +57,7 @@
             id="search_status"
 
             >
-            <option {{request('search_status') === "" ? 'selected' : ''}} value="">-Status-</option>
+            <option {{request('search_status') == "" ? 'selected' : ''}} value="">-Status-</option>
             <option {{request('search_status') == "0" ? 'selected' : ''}} value="0">Not paid</option>
             <option {{request('search_status') == "1" ? 'selected' : ''}} value="1">Paid</option>
 
@@ -176,7 +176,6 @@
 {{$invoices->links()}}
 
 @endif
-
 <div class=" float-right my-3">
    <x-button-add><a href="/invoices/create">+Create new</a></x-button-add>
 </div>

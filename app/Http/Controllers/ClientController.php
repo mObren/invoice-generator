@@ -14,7 +14,7 @@ class ClientController extends Controller
     //Show all clients
     public function index() {
         $clients = Client::fetchAllClients();     
-        return view('clients.all', ['clients' => $clients] );
+        return view('clients.all', ['clients' => $clients->withQueryString()] );
     }
 
 

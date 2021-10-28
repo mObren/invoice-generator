@@ -34,7 +34,7 @@ class InvoiceController extends Controller
             ->paginate(10);
  
         return view('invoices.all', [
-            'invoices' => $invoices,
+            'invoices' => $invoices->withQueryString(),
         ]);   
      }
      

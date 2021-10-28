@@ -70,6 +70,8 @@
 <div class="grid h-48 z-0 bg-gray-900 justify-items-center">
  
   <div>
+{{-- @dd(request('search_status')) --}}
+
 
     <p class="text-gray-500 mt-12 text-sm">Footer stuff</p>
   </div>

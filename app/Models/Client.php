@@ -62,6 +62,7 @@ class Client extends Model
         $user = User::getCurrentUser();
         $collection = Client::with('invoices')->where('user_id', $user->id);
         $clients = $collection->orderBy('company_name', 'ASC')->filter(request(['search_company']))->paginate(10);
+
         
         return $clients;
     }

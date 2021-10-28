@@ -40,6 +40,7 @@ class Invoice extends Model
 
     //Filters for querying invoices
     public function scopeFilter($query, array $filters) {
+        
 
         if (isset($filters['search_company'])) {
             $query->whereRelation('client', 'company_name', 'like', "%" . request('search_company') . "%");
