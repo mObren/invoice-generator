@@ -41,6 +41,9 @@ Route::get('/logout', [SessionController::class, 'destroy'])->middleware('auth')
 Route::get('/profile', [UserController::class, 'profile'])->middleware('auth', 'activeUser');
 Route::get('/stats', [UserController::class, 'stats'])->middleware('auth', 'activeUser');
 Route::post('/user/delete/{user}', [UserController::class, 'delete'])->middleware('auth', 'activeUser');
+Route::get('/user/edit/{user}', [UserController::class, 'edit'])->middleware('auth', 'activeUser');
+Route::post('/user/store/{user}', [UserController::class, 'store'])->middleware('auth', 'activeUser');
+
 
 
 

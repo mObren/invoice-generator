@@ -51,6 +51,15 @@
     </div>
     
 </div>
+<div class="bg-white mt-10 shadow-lg">
+    <div class="justify-items-center py-3 px-6 ml-16">
+        <p class="text-md text-gray-800 font-semibold">Change informations about user</p>
+        <p><a class="h-8 bg-white text-blue-700 cursor-pointer text-xs hover:text-blue-500  font-semibold p-1 " href="/user/edit/{{$user->id}}">Edit your account</a></p>
+    </div>
+
+
+</div>
+
 
 <div class="bg-white mt-10 shadow-lg">
     <div class="justify-items-center py-3 px-6 ml-16">
@@ -59,7 +68,7 @@
 
     <form class="ml-16 px-5 py-3" action="/user/delete/{{$user->id}}" method="POST">
         @csrf
-         <input class="h-8 bg-white cursor-pointer text-xs hover:text-red-500 text-red-700 font-semibold p-1"  type="submit" value="Delete your account">
+         <input class="h-8 text-red-700  bg-white cursor-pointer text-xs hover:text-red-500 font-semibold p-1"  type="submit" value="Delete your account">
         
         </form>
 
