@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Client;
 use App\Models\User;
 use Illuminate\Validation\Rules\In;
-use LaravelDaily\Invoices\Invoice as InvoiceDocument;
-use LaravelDaily\Invoices\Classes\Party;
-use LaravelDaily\Invoices\Classes\InvoiceItem;
 use Barryvdh\DomPDF\PDF as PDF;
 use Illuminate\Support\Facades\Redirect;
 
@@ -48,9 +45,9 @@ class InvoiceController extends Controller
      public function export(Invoice $invoice) {
        
         if($invoice->user()->id === auth()->user()->id) {
-       $invoiceDocument = Invoice::getInvoiceForPdf($invoice->id);
+            $invoiceDocument = Invoice::getInvoiceForPdf($invoice->id);
     
-       return view('templates.invoice', ['invoice' => $invoiceDocument,   'helper' => $invoice ]);
+        return view('templates.invoice', ['invoice' => $invoiceDocument,   'helper' => $invoice ]);
         } else {
             return redirect('/stats');
         }

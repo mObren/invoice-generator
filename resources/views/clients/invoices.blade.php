@@ -67,7 +67,8 @@
 
     {{ $invoices->links()}}
     <div class=" my-5 float-right">
-        <x-button-add><a class="text-gray-200 font-bold" href="/invoices/create">+Add invoice</a></x-button-add>
+        <x-button-add><a class="text-gray-200 font-bold" href="/invoices/add-to-client/{{$client->id}}">+Add invoice</a></x-button-add>
+
     
     </div>
     
