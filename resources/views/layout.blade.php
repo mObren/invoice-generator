@@ -34,7 +34,7 @@
 
   @auth
 
-  <div class="flex">
+  <div class="z-10 flex">
   <aside class="bg-gray-900 text-gray-700 min-h-full w-1/5">
     <ul class="text-gray-200 text-lg">
       <a href="/stats"> <li class="cursor-pointer font-semibold px-6 py-2 mt-8  hover:bg-gray-800">Stats</li></a>
@@ -67,11 +67,24 @@
 
 
 </div>
+<div class="grid h-48 z-0 bg-gray-900 justify-items-center">
+ 
+  <div>
+
+    <p class="text-gray-500 mt-12 text-sm">Footer stuff</p>
+  </div>
+  <div>
+
+    <p class="text-gray-500 text-sm">Something about contact</p>
+  </div>
+  <div>
+
+    <p class="text-xs">Milos Obrenovic</p>
+  </div>
+</div>
 </div>
 
-<div class="bg-gray-900">
-  footer
-</div>
+
     
 </body>
 </html>
