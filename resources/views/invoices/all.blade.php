@@ -57,15 +57,14 @@
             id="search_status"
 
             >
-            <option value="">-Status-</option>
-            <option {{request('search_status') == 0 ? 'selected' : ''}} value="0">Not paid</option>
-            <option {{request('search_status') == 1 ? 'selected' : ''}} value="1">Paid</option>
+            <option {{request('search_status') === "" ? 'selected' : ''}} value="">-Status-</option>
+            <option {{request('search_status') == "0" ? 'selected' : ''}} value="0">Not paid</option>
+            <option {{request('search_status') == "1" ? 'selected' : ''}} value="1">Paid</option>
 
 
             </select>
     </div>
         
-
     
         <div class="ml-2">
             <input 
@@ -163,7 +162,7 @@
     </div>
 </div>
 
-@empty($invoices)
+@if(count($invoices) == 0)
     <p class="p-2 m-2 text-lg font-semibold">  
            No results.
     </p>
@@ -171,11 +170,12 @@
 <div class=" mt-4">
     <p class="text-xs font-semibold text-gray-700"> * - Stared invoices are out of valute.</p>
 </div>
+{{-- @dd(request('search_status')) --}}
    
 
 {{$invoices->links()}}
 
-@endempty
+@endif
 
 <div class=" float-right my-3">
    <x-button-add><a href="/invoices/create">+Create new</a></x-button-add>
