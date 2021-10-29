@@ -1,11 +1,7 @@
 @extends('layout')
-
 @section('title', 'Add/edit client')
-
 @section('content')
-
 <div class="flex items-center justify-center">
-
     <div class="bg-white p-8 rounded-lg shadow 2x1 w-1/2">
         <h2 class="text-2xl font-bold mb-8 text-gray-700">{{isset($client) ? 'Edit' : 'Create' }} client</h2>
         <form class="space-y-3" action="/clients/save/{{$client->id ?? ''}}" method="POST">
@@ -82,11 +78,9 @@
            <x-form-error>{{$message}}</x-form-error>
                 
             @enderror
-
             <input class="w-full float-right block p-2 bg-blue-500 
             hover:bg-blue-400 rounded text-gray-200 cursor-pointer font-bold text-lg"
              type="submit" value="Confirm">
-
             
         
         </form>

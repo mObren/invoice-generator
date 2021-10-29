@@ -1,6 +1,5 @@
 @extends('layout')
 @section('title', 'All clients')
-
 @section('content')
 @if ($clients)
     
@@ -10,7 +9,6 @@
 <div class="float-right mt-2 mr-5">
   <form action="/clients" method="get">
       <div class="flex">
-
   
       <div class="ml-2">
           <input 
@@ -27,15 +25,11 @@
           type="submit" 
           value="Search">
       </div>
-
   </div>
-
   
   </form>
   
 </div>
-
-
 <div class="flex mb-5">
 <table class="w-full whitespace-nowrap bg-white border-gray-500 ml-2 mt-16 border-4">
     <thead class="">
@@ -48,7 +42,6 @@
              <x-table-cell>Total to pay</x-table-cell>
             <x-table-cell>Options</x-table-cell>
         </tr>
-
     </thead>
     <tbody class="text-sm">
         @foreach($clients as $client)
@@ -85,29 +78,18 @@
         
               </x-button-dropdown>
             </td>
-
-
         </tr>       
        @endforeach
        
-
     </tbody>
 </table>    
-
 </div>
 @else
 <h2>There are not any clients yet.</h2>
 @endif
-
 {{ $clients->links()}}
-
 <div class=" my-5 float-right">
     <x-button-add><a class="text-gray-200 font-bold" href="/clients/create">+Add client</a></x-button-add>
-
 </div>
-
-
-
-
     
 @endsection

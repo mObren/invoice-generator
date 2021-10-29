@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Http\Requests\InvoiceStoreRequest;
 use Illuminate\Http\Request;
 use App\Models\Invoice;
@@ -11,7 +9,6 @@ use App\Models\User;
 use Illuminate\Validation\Rules\In;
 use Barryvdh\DomPDF\PDF as PDF;
 use Illuminate\Support\Facades\Redirect;
-
 class InvoiceController extends Controller
 {
     /**
@@ -39,8 +36,6 @@ class InvoiceController extends Controller
      }
      
      
-
-
      //Display selected invoice in PDF format.
      public function export(Invoice $invoice) {
        
@@ -52,19 +47,14 @@ class InvoiceController extends Controller
             return redirect('/stats');
         }
      }
-
-
      //**Download PDF of selected invoice */
-
      public function downloadPDF(Invoice $invoice) {
-
         $user = User::getCurrentUser();
-
         if ($invoice->user()->id === $user->id) {
             $invoiceDocument = Invoice::getInvoiceForPdf($invoice->id);
   
         
-            view()->share(['invoice' => $invoiceDocument, 'helper' =>$invoice]);
+             view()->share(['invoice' => $invoiceDocument, 'helper' =>$invoice]);
             $pdf = app('dompdf.wrapper');
             $pdf->loadView('templates.invoice');
             
@@ -75,7 +65,6 @@ class InvoiceController extends Controller
         }
       
       }
-
     //Display single invoice with form for adding items
     public function single(Invoice $invoice) {
         if (Auth::user()->id === $invoice->user()->id) {
@@ -85,10 +74,7 @@ class InvoiceController extends Controller
         } else {
             return redirect('/stats');
         }
-
-
      
-
     }
     //Display form for adding invoices
     public function create(Invoice $invoice = null) {
@@ -100,7 +86,6 @@ class InvoiceController extends Controller
             } else {
                 return redirect('/stats');
             }
-
         } else {
             return view('invoices.create');
         }
@@ -113,11 +98,8 @@ class InvoiceController extends Controller
             return view('invoices.add-to-client', ['client' => $client]);
         } else {
             return redirect('/stats');
-
         }
     }
-
-
     //Store invoice for targeted client
     public  function addInvoiceToClient(Client $client, InvoiceStoreRequest $request) {
         if (Auth::user()->id === $client->user_id) {
@@ -127,16 +109,12 @@ class InvoiceController extends Controller
             
         } else {
             return redirect('/stats');
-
         }
     }
-
     //Store invoice to database
     public function store(Invoice $invoice = null, InvoiceStoreRequest $request) {
-
         if ($invoice !== null) {
             $validated = $request->validated();
-
             if (Auth::user()->id === $invoice->user()->id) {
                 $invoice->update($validated);
                 return redirect("/invoices/$invoice->id")->with('success', 'Invoice has been updated!');
@@ -144,17 +122,13 @@ class InvoiceController extends Controller
                 return redirect('/stats');
             }
      
-
         } else { 
-
                 $validated = $request->validated();
                 $validated['status'] = 0;
                 $invoice = Invoice::create($validated);
-
                 return redirect("/invoices/$invoice->id")->with('success', "New invoice has been successfully created!");
              }
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -172,11 +146,8 @@ class InvoiceController extends Controller
         }
     
     }
-
-
     //Set "is paid" status to oposite of current
     public function changeIsPaidStatus(Invoice $invoice) {
-
         if (Auth::user()->id === $invoice->user()->id) {
             if ($invoice->status === 0) {
                 $data['status'] = 1;
@@ -195,5 +166,4 @@ class InvoiceController extends Controller
         }
        
     }
-
 }

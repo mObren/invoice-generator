@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ItemController;
@@ -8,7 +7,6 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,35 +17,22 @@ use App\Http\Controllers\UserController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function (){
     return view('home');
 });
-
-
-
-
 //Register routes
 Route::get('/register', [RegisterController::class, 'create'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
-
-
 //Session routes
 Route::get('/login', [SessionController::class, 'create'])->middleware('guest');
 Route::post('/login', [SessionController::class, 'login'])->middleware(['guest', 'userStatus']);
 Route::get('/logout', [SessionController::class, 'destroy'])->middleware('auth');
-
 //User routes
 Route::get('/profile', [UserController::class, 'profile'])->middleware('auth', 'activeUser');
 Route::get('/stats', [UserController::class, 'stats'])->middleware('auth', 'activeUser');
 Route::post('/user/delete/{user}', [UserController::class, 'delete'])->middleware('auth', 'activeUser');
 Route::get('/user/edit/{user}', [UserController::class, 'edit'])->middleware('auth', 'activeUser');
 Route::post('/user/store/{user}', [UserController::class, 'store'])->middleware('auth', 'activeUser');
-
-
-
-
-
 //Client routes
 Route::prefix('clients')->group(function () {
     Route::get('/create/{client?}', [ClientController::class, 'create'])->middleware('auth', 'activeUser');
@@ -57,7 +42,6 @@ Route::prefix('clients')->group(function () {
     Route::get('/{client}', [ClientController::class, 'single'])->middleware('auth', 'activeUser');
     Route::get('', [ClientController::class, 'index'])->middleware('auth', 'activeUser');
 });
-
 //Invoice routes
 Route::prefix('invoices')->group( function () {
     Route::get('/create/{invoice?}', [InvoiceController::class, 'create'])->middleware('auth', 'activeUser');
@@ -72,15 +56,9 @@ Route::prefix('invoices')->group( function () {
     Route::get('', [InvoiceController::class, 'index'])->middleware('auth', 'activeUser');
     //Mail route
     Route::get('/send/{invoice}', [SendMailController::class, 'send'])->middleware('auth', 'activeUser');
-
-
 });
-
 //Item routes
 Route::prefix('items')->group( function () {
     Route::post('/create', [ItemController::class, 'store'])->middleware('auth', 'activeUser');
     Route::post('/delete/{item}', [ItemController::class, 'delete'])->middleware('auth', 'activeUser');
 });
-
-
-

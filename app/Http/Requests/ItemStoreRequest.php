@@ -1,9 +1,6 @@
 <?php
-
 namespace App\Http\Requests;
-
 use Illuminate\Foundation\Http\FormRequest;
-
 class ItemStoreRequest extends FormRequest
 {
     /**
@@ -15,7 +12,6 @@ class ItemStoreRequest extends FormRequest
     {
         return true;
     }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -31,7 +27,6 @@ class ItemStoreRequest extends FormRequest
             'pdv' => 'required|numeric|gt:0',
         ];
     }
-
     public function messages()
     {
         return [
@@ -41,7 +36,6 @@ class ItemStoreRequest extends FormRequest
             'pdv.required' => "Tax is required!",
             'pdv.numeric' => "Tax must be in number format.",
             'pdv.gt' => "Tax must be greater than zero."
-
         ];
     }
 }

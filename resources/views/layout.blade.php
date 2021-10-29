@@ -8,7 +8,6 @@
     <title>Invoice project | @yield('title')</title>
     <link rel="stylesheet" href="/app.css">
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-
 </head>
 <body>
   <div class="divide-y divide-gray-500">
@@ -19,21 +18,14 @@
         @auth
         <a href="/profile"><li class="cursor-pointer px-4 py-2 hover:underline">{{ auth()->user()->username }}</li></a>
         <a href="/logout"><li class="cursor-pointer px-4 py-2 hover:underline">Logout</li></a>
-
         @else
         <a href="/login"><li class="cursor-pointer px-4 py-2 hover:underline">Login</li></a>
         <a href="/register"><li class="cursor-pointer px-4 py-2 hover:underline">SignUp</li></a>
         @endauth
-
       </ul>
-
-
     </div>
-
   </nav>
-
   @auth
-
   <div class="z-10 flex">
   <aside class="bg-gray-900 text-gray-700 min-h-full w-1/5">
     <ul class="text-gray-200 text-lg">
@@ -43,50 +35,37 @@
       <a href="/invoices/create"> <li class="cursor-pointer font-semibold px-6 py-2 my-4 hover:bg-gray-800">Add new invoice</li></a>
       <a href="/invoices"> <li class="cursor-pointer font-semibold px-6 py-2 my-4 hover:bg-gray-800">List all invoices</li></a>
       <a href="/profile"> <li class="cursor-pointer font-semibold px-6 py-2 my-4 hover:bg-gray-800">Profile</li></a>
-
     </ul>
-
   </aside>
   @endauth
   <main class="bg-gray-100 p-12 min-h-screen w-full "> 
-
     @if (session()->has('success'))
     <div  x-data="{ show: true}"
           x-init="setTimeout(() => show = false, 4000)"
           x-show="show"
           class="absoulte right-5 top-5 rounded bg-gray-200">
-
            <p class="text-xs font-semibold text-green-600">{{ session('success')}}  </p>
       
       </div>
     @endif
    
     @yield('content') 
-
   </main>
-
-
 </div>
 <div class="grid h-48 z-0 bg-gray-900 justify-items-center">
  
   <div>
 {{-- @dd(request('search_status')) --}}
-
-
     <p class="text-gray-500 mt-12 text-sm">Footer stuff</p>
   </div>
   <div>
-
     <p class="text-gray-500 text-sm">Something about contact</p>
   </div>
   <div>
-
     <p class="text-xs">Milos Obrenovic</p>
   </div>
 </div>
 </div>
-
-
     
 </body>
 </html>

@@ -1,13 +1,7 @@
 @extends('layout')
-
-
 @section('title', 'Login')
-
-
 @section('content')
 <div class="flex items-center justify-center">
-
-
 <div class="bg-white p-8 rounded-lg shadow 2x1 w-1/3">
     <h2 class="text-2xl font-bold mb-8 text-gray-700">Login</h2>
     <form class="space-y-3" action="/login" method="POST">
@@ -40,6 +34,5 @@
     
 </div>
 </div>
-
     
 @endsection

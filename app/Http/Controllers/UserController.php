@@ -1,26 +1,20 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Http\Requests\UserEditRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Invoice;
 use Illuminate\Queue\Jobs\RedisJob;
-
 class UserController extends Controller
 {
-
     public function stats() {
         $user = User::getCurrentUser();
         $invoices = Invoice::whereRelation('client', 'user_id', "=", $user->id);
         $helper = Invoice::whereRelation('client', 'user_id', "=", $user->id);
-
         // dd($invoices);
         $totalIncome = 0;
         $totalDues = 0;
-
         $paidInvoices = $invoices->with('items')->filter(request(['paid_from', 'paid_to']))->get();
         foreach ($paidInvoices as $paid) {
             // foreach ($paid->items as $item) {
@@ -31,23 +25,16 @@ class UserController extends Controller
         $notPaidInvoices = $helper->where('status', 0)->with('items')->filter(request(['search_date_from', 'search_date_to']))->get();
         foreach ($notPaidInvoices as $notPaid) {
             $totalDues += $notPaid->getTotalNumeric();
-
         }
-
         return view('user.stats', [
             'income' => number_format($totalIncome, 2, ',', '.'),
             'dues' => number_format($totalDues, 2, ',', '.'),
         ]);
     }
     
-
-
-
     public function profile() {
-
     $user = User::getCurrentUser();
     $profile = User::with(['clients'])->where('id', $user->id)->get();
-
     return view('user.profile', [
         'user' => $profile[0]
     ]);
@@ -60,31 +47,24 @@ class UserController extends Controller
             // Auth::logout();
             User::destroy($user->id);
             return redirect("/")->with('success', 'Your account has been deleted.');
-
         } else {
             return redirect('/');
-
         }
-
-
     }
     public function edit(User $user) { 
         if ($user->id === User::getCurrentUser()->id) {
             return view('user.edit', ['user'=> $user]);
         } else {
             return redirect('/');
-
         }
     }
     public  function store(User $user, UserEditRequest $request) {
         if ($user->id === User::getCurrentUser()->id) {
             $validated = $request->validated();
-
             $user->update($validated);
             return redirect('/profile')->with('success', 'Your profile is successfuly updated.');
         } else {
             return redirect('/');
         }
     }
-
 }

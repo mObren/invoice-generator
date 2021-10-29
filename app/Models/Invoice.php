@@ -1,28 +1,21 @@
 <?php
-
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use LaravelDaily\Invoices\Invoice as InvoiceDocument;
 use LaravelDaily\Invoices\Classes\Party;
 use LaravelDaily\Invoices\Classes\InvoiceItem;
-
 class Invoice extends Model
 {
     use HasFactory;
-
-
     /**
      * The attributes that are not mass assignable.
      *
      * @var string[]
      */
     protected $guarded = ['id'];
-
     protected $dates = ['date', 'valute'];
-
     public function client() {
         return $this->belongsTo(Client::class);
     }
@@ -30,18 +23,12 @@ class Invoice extends Model
     public function user() {
         return $this->client->user;
     }
-
-
     public function items() {
         return $this->hasMany(Item::class);
     }
-
-
-
     //Filters for querying invoices
     public function scopeFilter($query, array $filters) {
         
-
         if (isset($filters['search_company'])) {
             $query->whereRelation('client', 'company_name', 'like', "%" . request('search_company') . "%");
         } 
@@ -68,48 +55,37 @@ class Invoice extends Model
         }
      
     }
-
-
     //Sum all items for an inovice and format the result
     public function getTotal() {
         $total = 0;
         $items = $this->items;
         foreach ($items as $item) {
             $total+= $item->price * $item->quantity;
-
         }
         return number_format($total, 2, ',', '.');
     }
-
     //Sum all items for an invoice
     public function getTotalNumeric() {
         $total = 0;
         $items = $this->items;
         foreach ($items as $item) {
             $total+= $item->price * $item->quantity;
-
         }
         return $total;
     }
-
     public function getTotalTaxes() {
         $total = 0;
         $items = $this->items;
         foreach ($items as $item) {
             $total+= $item->price * $item->quantity;
-
         }
         return number_format($total/6, 2, ',', '.');
     }
-
-
     //Return data for displaying invoice in PDF format
     public static function getInvoiceForPdf($id)
     {
        $row = Invoice::findOrFail($id);
-
      
-
            $invoice = $row->load(['items', 'client']);
    
            $user = User::find(Auth::user()->id);
@@ -166,7 +142,6 @@ class Invoice extends Model
            ->addItems($items->toArray())
            // ->logo(public_path('vendor/invoices/sample-logo.png'))
            ->template('invoice'); // Plantilla personalizada
-
            return $invoiceDocument;
     }
    

@@ -1,9 +1,6 @@
 @extends('layout')
-
 @section('title', "Invoice no. $invoice->id")
-
 @section('content')
-
 <div class="justify-items-center py-2 px-6 ml-28">
     <h2 class="text-2xl text-gray-700 font-bold uppercase">Invoice no. {{$invoice->id}}</h2>
 </div>
@@ -23,7 +20,6 @@
          href="/invoices/toggle/{{$invoice->id}}">
          Mark as unpaid
         </a>
-
     @endif
     </div>
     <div class="inline">
@@ -50,10 +46,7 @@
   
   
 </div>
-
-
 <div class="absolute justify-center w-9/12 mt-6 py-6 px-6 bg-white rounded shadow-lg right-12">
-
     <div class="ml-12 divide">
         <table>
             <tbody>
@@ -93,12 +86,10 @@
                         </p>   
                      </td>
                 </tr>
-
     
             </tbody>
         </table>
     </div>
-
    
   
     <div class="my-2 divide py-4">
@@ -163,14 +154,11 @@
                 </div>
                 
                 
-
-
             </div>
         </form>
    
     </div>
     <div class=" flex rounded shadow-md">
-
         <div class="p-2 m-3 w-44">
             <p class="h-8 text-sm font-semibold p-1">Service/Item</p>
             @foreach($invoice->items as $item)
@@ -208,10 +196,8 @@
             </form>
          
             </p> 
-
       
             @endforeach       
-
         </div>
         
     </div>
@@ -228,5 +214,4 @@
             </div>
     </div>
 </div>
-
 @endsection
