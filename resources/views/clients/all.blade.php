@@ -30,7 +30,7 @@
   </form>
   
 </div>
-<div class="flex mb-5">
+<div class="flex w-full mb-5">
 <table class="w-full whitespace-nowrap bg-white border-gray-500 ml-2 mt-16 border-4">
     <thead class="">
         <tr class="text-left font-bold">
