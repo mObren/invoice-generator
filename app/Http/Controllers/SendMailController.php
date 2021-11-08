@@ -10,6 +10,6 @@ class SendMailController extends Controller
         
     Mail::to($invoice->client->email)
         ->send(new SendInvoice($invoice));
-    return redirect('/')->with('success', 'Mail sent successfuly!');
+    return redirect("/invoices/$invoice->id")->with('success', 'Mail sent successfuly!');
     }
 }
