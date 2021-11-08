@@ -87,11 +87,7 @@ class Invoice extends Model
        $row = Invoice::findOrFail($id);
      
            $invoice = $row->load(['items', 'client']);
-   
-           $user = User::find(Auth::user()->id);
-   
-           // dd($user->company_name);
-   
+           $user = User::getCurrentUser();
            $seller = new Party([
                'name' => $user->company_name,
                'code' => $user->zip_code,
@@ -140,8 +136,7 @@ class Invoice extends Model
            ->currencyDecimalPoint(',')
            ->filename($invoice->id)
            ->addItems($items->toArray())
-           // ->logo(public_path('vendor/invoices/sample-logo.png'))
-           ->template('invoice'); // Plantilla personalizada
+           ->template('invoice');
            return $invoiceDocument;
     }
    

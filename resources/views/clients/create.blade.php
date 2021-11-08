@@ -85,7 +85,7 @@
         
         </form>
         <button  class="w-full"  >   <a   class="w-full mt-3 float-right block p-2 bg-red-500 
-        hover:bg-red-400 rounded text-gray-200 cursor-pointer font-bold text-lg"  href="/clients">Cancel</a></button>
+        hover:bg-red-400 rounded text-gray-200 cursor-pointer font-bold text-lg"  href="{{ url()->previous() }}">Cancel</a></button>
     </div>
 </div>
     

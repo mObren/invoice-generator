@@ -46,7 +46,7 @@
   
   
 </div>
-<div class="absolute justify-center w-9/12 mt-6 py-6 px-6 bg-white rounded shadow-lg right-12">
+<div class=" justify-center w-full mt-8 py-6 px-6 bg-white rounded shadow-lg right-12">
     <div class="ml-12 divide">
         <table>
             <tbody>

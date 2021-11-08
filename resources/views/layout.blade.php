@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 </head>
 <body>
-  <div class="divide-y divide-gray-500">
+  <div class="divide-y h-full divide-gray-500">
   <nav class="bg-gray-900 px-3 py-2 flex items-center">
     <div class="h-12 w-full flex items-center text-2xl"> <a href="/" class="w-full text-gray-300">Laravel Invoices App</a> </div>
     <div class="flex justify-end">
@@ -52,7 +52,7 @@
     @yield('content') 
   </main>
 </div>
-<div class="grid h-48 z-0 bg-gray-900 justify-items-center">
+<div class="grid  h-36 z-0 bg-gray-900 justify-items-center">
  
   <div>
 {{-- @dd(request('search_status')) --}}

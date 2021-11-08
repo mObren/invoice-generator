@@ -27,7 +27,13 @@ class InvoiceController extends Controller
         $invoices = $collection
             ->orderBy('date', 'ASC')
             ->filter(request([
-            'search_company', 'search_status', 'search_date_from', 'search_date_to', 'search_valute_from', 'search_valute_to']))
+            'search_company', 
+            'search_status', 
+            'search_date_from', 
+            'search_date_to', 
+            'search_valute_from', 
+            'search_valute_to'
+            ]))
             ->paginate(10);
  
         return view('invoices.all', [
@@ -53,11 +59,9 @@ class InvoiceController extends Controller
         if ($invoice->user()->id === $user->id) {
             $invoiceDocument = Invoice::getInvoiceForPdf($invoice->id);
   
-        
              view()->share(['invoice' => $invoiceDocument, 'helper' =>$invoice]);
             $pdf = app('dompdf.wrapper');
             $pdf->loadView('templates.invoice');
-            
             return $pdf->download("invoice-" . $invoice->id . ".pdf");
         } 
         else {

@@ -30,4 +30,19 @@ class ClientStoreRequest extends FormRequest
             'zip_code' => 'required'
         ];
     }
+     public function messages()
+    {
+        return [
+            'company_name.required' => "Please, provide the client's company name.",
+            'email.required' => "Client's email address is required.",
+            'email.email' => "Please, provide a valid email address for the client.",
+            'city.required' => "Please, enter the name of the city from which the client's company comes.",
+            'address.required' => "Please, enter the address of the client's company.",
+            'country.required' => "Please, enter the name of the country from which the client's company comes.",
+            'registration_number.required' => "Please, provide the registration number of the client's company.",
+            'tax_number.required' => "Please, provide the tax number of the client's company.",
+            'zip_code.required' => "Please, provide the zip code of the client's company.",
+
+        ];
+    }
 }

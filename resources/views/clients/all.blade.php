@@ -51,7 +51,7 @@
             <td class="border-2 text-xs px-4 py-2">{{$client->city}}</td>
             <td class="border-2 text-xs px-4 py-2">{{$client->country}}</td>
             <td class="border-2 text-xs px-2 py-2">{{$client->zip_code}}</td>
-            <td class="border-2 text-xs text-xs px-4 py-2">{{$client->getTotalToPay()}} rsd</td>
+            <td class="border-2 text-xs px-4 py-2">{{$client->getTotalToPay()}} rsd</td>
             <td class="border-2 text-xs px-4 py-2">
               <x-button-dropdown>   <a href="/clients/{{$client->id}}" 
                 class="block px-4 py-2 text-sm  text-gray-700 hover:bg-blue-500 hover:text-white">

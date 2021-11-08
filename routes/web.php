@@ -7,6 +7,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Redirect;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +22,8 @@ use App\Http\Controllers\UserController;
 Route::get('/', function (){
     return view('home');
 });
+
+
 //Register routes
 Route::get('/register', [RegisterController::class, 'create'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
