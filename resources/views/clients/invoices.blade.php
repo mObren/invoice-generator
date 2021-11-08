@@ -34,7 +34,7 @@
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">
                   Edit
                 </a>
-                <a href="/toggle/change/{{$invoice->id}}" 
+                <a href="/invoices/toggle/{{$invoice->id}}" 
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">
                 Change status
                 </a>
